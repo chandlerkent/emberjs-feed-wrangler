@@ -1,25 +1,8 @@
-var http = require('http'),
-    httpProxy = require('http-proxy'),
-    statik = require("statik");
+var http = require('http');
+var httpProxy = require('http-proxy');
+var statik = require("statik");
+var CONFIG = require("./config");
 
-var CONFIG = {
-  PORT: process.env.SERVER_PORT,
-  HOST: process.env.SERVER_HOST,
-  FEED_WRANGLER: {
-    PORT: process.env.FEED_WRANGLER_PORT,
-    HOST: process.env.FEED_WRANGLER_HOST,
-    CLIENT_KEY: process.env.FEED_WRANGLER_CLIENT_KEY
-  },
-  STATIC_SERVER: {
-    PORT: process.env.STATIC_SERVER_PORT,
-    HOST: process.env.STATIC_SERVER_HOST,
-    ROOT: process.env.STATIC_SERVER_ROOT
-  }
-};
-
-//
-// Create a proxy server with custom application logic
-//
 var s = httpProxy.createServer(function (req, res, proxy) {
   if (req.url.indexOf("/fw") === 0) {
     req.url = req.url.replace("/fw", "");
@@ -30,7 +13,11 @@ var s = httpProxy.createServer(function (req, res, proxy) {
     });
   }
   else if (req.url === "/config.js") {
-    res.write("CONFIG = { client_key: '" + CONFIG.FEED_WRANGLER.CLIENT_KEY + "' };");
+    var clientConfig = {
+      "client_key": CONFIG.FEED_WRANGLER.CLIENT_KEY
+    };
+    res.setHeader("Content-Type", "application/javascript");
+    res.write("CONFIG = " + JSON.stringify(clientConfig) + ";");
     res.end();
   }
   else {
@@ -45,7 +32,7 @@ var s = httpProxy.createServer(function (req, res, proxy) {
 s.listen(CONFIG.PORT, CONFIG.HOST);
 
 s.on("listening", function() {
-  console.log("LISTENING", CONFIG);
+  console.log("LISTENING", CONFIG.PORT, CONFIG.HOST);
 });
 
 statik({
