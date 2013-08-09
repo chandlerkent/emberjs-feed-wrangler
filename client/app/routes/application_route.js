@@ -41,7 +41,7 @@ App.ApplicationRoute = Ember.Route.extend({
         return; 
       }
       
-      App.API.getJSON(App.API.constructApiUrl("feed_items/mark_all_read", { feed_item_ids: ids.join(",") }), "feed_items")
+      App.API.markFeedItemsRead(ids)
       .then(function(results) {
         results.forEach(function(result) {
           var cachedModel = cachedModels[result.feed_item_id];

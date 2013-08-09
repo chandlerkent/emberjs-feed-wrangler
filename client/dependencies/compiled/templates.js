@@ -44,11 +44,13 @@ function program6(depth0,data) {
   }
 function program7(depth0,data) {
   
-  var buffer = '', hashTypes, hashContexts;
+  var buffer = '', hashContexts, hashTypes;
   data.buffer.push("\n			");
-  hashTypes = {};
-  hashContexts = {};
-  data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.FeedItemView", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  hashContexts = {'contentBinding': depth0};
+  hashTypes = {'contentBinding': "STRING"};
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.FeedItemView", {hash:{
+    'contentBinding': ("this")
+  },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
   data.buffer.push("\n		");
   return buffer;
   }
@@ -138,7 +140,13 @@ function program11(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div class=\"stream_item\">\n	<div ");
+  data.buffer.push("<div ");
+  hashContexts = {'class': depth0};
+  hashTypes = {'class': "STRING"};
+  data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
+    'class': (":stream_item isSelected:active")
+  },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push(">\n	<div ");
   hashContexts = {'class': depth0};
   hashTypes = {'class': "STRING"};
   data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{

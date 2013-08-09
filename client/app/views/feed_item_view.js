@@ -6,7 +6,13 @@ App.FeedItemView = Ember.View.extend({
 		this.toggleProperty("isShowingBody");
   },
   
-  click: function() {
-    this.toggleBodyVisibility();
+  click: function(evt) {
+    evt.stopPropagation();
+    
+    if ($(evt.target).closest(".stream_item-title").length > 0) {
+      this.toggleBodyVisibility();
+    }
+    
+    this.get("controller").send("didSelectItem", this.get("content"));
   }
 });

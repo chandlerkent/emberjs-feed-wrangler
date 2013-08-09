@@ -67,6 +67,17 @@ module.exports = function(grunt) {
       },
       'client/dependencies/compiled/templates.js': ["client/app/templates/**/*.hbs"]
     },
+    
+    watch: {
+      application_code: {
+        files: ['client/dependencies/**/*.js', 'client/app/**/*.js'],
+        tasks: ['neuter']
+      },
+      handlebars_templates: {
+        files: ['client/app/**/*.hbs'],
+        tasks: ['emberTemplates', 'neuter']
+      }
+    },
 
     /*
       Find all the <whatever>_test.js files in the test folder.
@@ -101,5 +112,5 @@ module.exports = function(grunt) {
     Default task. Compiles templates, neuters application code, and begins
     watching for changes.
   */
-  grunt.registerTask('default', ['emberTemplates', 'neuter']);
+  grunt.registerTask('default', ['emberTemplates', 'neuter', "watch"]);
 };

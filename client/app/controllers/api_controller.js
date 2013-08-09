@@ -1,7 +1,14 @@
+require("app/controllers/work_coalescing_controller");
+
 var APIController = Ember.Object.extend({
   baseUrl: "",
   apiToken: "",
   clientKey: "",
+  
+  _itemsToMarkRead: [],
+  _coalescingWorkController: (WorkCoalescingController.create({
+    timerInterval: 10000 
+  })),
   
   buildQueryStringFromObject: function(params) {
     var qsParams = [];
@@ -89,7 +96,7 @@ var APIController = Ember.Object.extend({
   
   updateFeedItem: function(model, props) {
     var promise = new Ember.RSVP.Promise(function(resolve, reject) {
-      var dataOrig = model.getProperties("feed_item_id", "read_later", "starred");
+      var dataOrig = model.getProperties("feed_item_id", "read_later", "starred", "read");
       var dataNew = Ember.copy(dataOrig, true);
       for (var prop in props) {
         dataNew[prop] = props[prop];
@@ -106,6 +113,30 @@ var APIController = Ember.Object.extend({
     });
     
     return promise;
+  },
+    
+  markFeedItemRead: function(model) { 
+    var c = App.getPreambledConsole("APIController.markFeedItemRead");
+    this.get("_itemsToMarkRead").push(model.get("id"));
+    
+    model.set("read", true);
+    
+    var self = this;
+    this.get("_coalescingWorkController").scheduleWork(function() {
+      c.log("Marking read:", self.get("_itemsToMarkRead"));
+      self.markFeedItemsRead(self.get("_itemsToMarkRead"));
+      self.set("_itemsToMarkRead", []);
+    });
+  },
+  
+  markFeedItemsRead: function(feedItemIds) {
+    if (feedItemIds.length <= 0) {
+      return new Ember.RSVP.Promise(function(resolve, reject) {
+        resolve();
+      });
+    }
+    
+    return App.API.getJSON(App.API.constructApiUrl("feed_items/mark_all_read", { feed_item_ids: feedItemIds.join(",") }), "feed_items");
   },
   
   isAuthenticated: function() {

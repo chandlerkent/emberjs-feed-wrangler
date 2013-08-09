@@ -13,7 +13,7 @@
 		<center>{{loadError}}</center>    
 	{{else}}
 		{{#each model}}
-			{{view App.FeedItemView}}
+			{{view App.FeedItemView contentBinding="this"}}
 		{{else}}
 			<br />
 			<br />
