@@ -15,7 +15,7 @@ var APIController = Ember.Object.extend({
     
     this.set("_itemsToMarkRead", []);
     this.set("_coalescingWorkController", WorkCoalescingController.create({
-      timerInterval: 1000
+      timerInterval: 5000
     }));
   },
   
@@ -131,10 +131,12 @@ var APIController = Ember.Object.extend({
     model.set("read", true);
     
     var self = this;
-    this.get("_coalescingWorkController").scheduleWork(function() {
+    return this.get("_coalescingWorkController").scheduleWork()
+    .then(function() {
       c.log("Marking read:", self.get("_itemsToMarkRead"));
-      self.markFeedItemsRead(self.get("_itemsToMarkRead"));
+      var promise = self.markFeedItemsRead(self.get("_itemsToMarkRead"));
       self.set("_itemsToMarkRead", []);
+      return promise;
     });
   },
   
