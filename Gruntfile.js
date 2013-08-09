@@ -25,7 +25,6 @@ module.exports = function(grunt) {
         filepathTransform: function(filepath) {
           filepath = "client/" + filepath;
           filepath = filepath.replace(/\.js$/, '');
-          console.log(filepath);
           return filepath;
         }
       },
@@ -59,7 +58,7 @@ module.exports = function(grunt) {
     watch: {
       application_code: {
         files: ['client/dependencies/**/*.js', 'client/app/**/*.js'],
-        tasks: ['neuter']
+        tasks: ["jshint", 'neuter']
       },
       handlebars_templates: {
         files: ['client/app/**/*.hbs'],
