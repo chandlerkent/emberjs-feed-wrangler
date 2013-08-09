@@ -1,3 +1,5 @@
+/* global moment */
+
 require("dependencies/moment.min.js");
 
 Ember.Handlebars.helper('timeAgo', function(value) {

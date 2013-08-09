@@ -1,4 +1,6 @@
-App.FeedRoute = AuthenticatedRoute.extend(App.LoadableRoute, {
+/* global AuthenticatedRoute, LoadableRoute */
+
+App.FeedRoute = AuthenticatedRoute.extend(LoadableRoute, {
 	setupParameters: function(controller, model) {
     return { feed_id: model.id };
   },

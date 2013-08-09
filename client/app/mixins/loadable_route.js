@@ -1,4 +1,4 @@
-App.LoadableRoute = Ember.Mixin.create({
+var LoadableRoute = Ember.Mixin.create({
   setupParameters: function(controller, model) {
     return {}; 
   },
@@ -11,7 +11,7 @@ App.LoadableRoute = Ember.Mixin.create({
     if (this.modelIsResolved(model)) {
       this._super(controller, model);
       return;
-    };
+    }
     
     controller.set("model", []);
     controller.set("isLoading", true);

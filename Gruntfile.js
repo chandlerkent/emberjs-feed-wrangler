@@ -33,18 +33,6 @@ module.exports = function(grunt) {
     },
 
     /* 
-      Reads the projects .jshintrc file and applies coding
-      standards. Doesn't lint the dependencies or test
-      support files.
-    */
-    jshint: {
-      all: ['Gruntfile.js', 'client/app/**/*.js', '!client/dependencies/*.*'],
-      options: {
-        jshintrc: '.jshintrc'
-      }
-    },
-
-    /* 
       Finds Handlebars templates and precompiles them into functions.
       The provides two benefits:
 
@@ -87,6 +75,18 @@ module.exports = function(grunt) {
     */
     build_test_runner_file: {
       all: ['test/**/*_test.js']
+    },
+    
+    /* 
+      Reads the projects .jshintrc file and applies coding
+      standards. Doesn't lint the dependencies or test
+      support files.
+    */
+    jshint: {
+      all: ['Gruntfile.js', 'client/app/**/*.js', '!client/dependencies/*.*'],
+      options: {
+        jshintrc: '.jshintrc'
+      }
     }
   });
   
@@ -112,5 +112,5 @@ module.exports = function(grunt) {
     Default task. Compiles templates, neuters application code, and begins
     watching for changes.
   */
-  grunt.registerTask('default', ['emberTemplates', 'neuter', "watch"]);
+  grunt.registerTask('default', ["jshint", 'emberTemplates', 'neuter', "watch"]);
 };

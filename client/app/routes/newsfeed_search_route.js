@@ -1,4 +1,6 @@
-App.NewsfeedSearchRoute = AuthenticatedRoute.extend(App.LoadableRoute, {
+/* global AuthenticatedRoute, LoadableRoute */
+
+App.NewsfeedSearchRoute = AuthenticatedRoute.extend(LoadableRoute, {
   setupParameters: function(controller, model) {
     return { search_term: model };
   },

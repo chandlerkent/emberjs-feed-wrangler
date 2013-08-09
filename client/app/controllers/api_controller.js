@@ -1,3 +1,5 @@
+/* global WorkCoalescingController */
+
 require("app/controllers/work_coalescing_controller");
 
 var APIController = Ember.Object.extend({
@@ -5,10 +7,17 @@ var APIController = Ember.Object.extend({
   apiToken: "",
   clientKey: "",
   
-  _itemsToMarkRead: [],
-  _coalescingWorkController: (WorkCoalescingController.create({
-    timerInterval: 10000 
-  })),
+  _itemsToMarkRead: null,
+  _coalescingWorkController: null,
+  
+  init: function() {
+    this._super();
+    
+    this.set("_itemsToMarkRead", []);
+    this.set("_coalescingWorkController", WorkCoalescingController.create({
+      timerInterval: 1000
+    }));
+  },
   
   buildQueryStringFromObject: function(params) {
     var qsParams = [];
