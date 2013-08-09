@@ -3,6 +3,8 @@ var httpProxy = require('http-proxy');
 var statik = require("statik");
 var CONFIG = require("./config");
 
+console.log("CONFIG:", CONFIG);
+
 var s = httpProxy.createServer(function (req, res, proxy) {
   if (req.url.indexOf("/fw") === 0) {
     req.url = req.url.replace("/fw", "");

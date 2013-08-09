@@ -1,0 +1,46 @@
+{{#linkTo index}}
+	<img alt="Banner@2x" class="banner" height="30" src="/fw/assets/banner@2x-5354fc7860f2bfd098d1b30f4c332236.png" width="170">
+{{/linkTo}}
+
+<div class="stream-config">
+		<h4>Feeds</h4>
+		<p>
+			{{#linkTo unread}}Unread{{/linkTo}}
+			<br />
+			{{#linkTo newsfeed}}All Feeds{{/linkTo}}
+			<br />
+			{{#linkTo starred}}Starred{{/linkTo}}
+			<br />
+		</p>
+</div>
+
+<div class="stream-config">
+		<h4>Smart Streams</h4>
+		<p>
+			{{#each streams}}
+				{{#linkTo 'stream' this classNames="regular_link"}}{{title}}{{/linkTo}}
+				<br />
+			{{/each}}
+		</p>
+		<center>
+			<a href="/streams/new">Create</a>
+		</center>
+</div>
+
+<div class="stream-config">
+	<form accept-charset="UTF-8" {{action "didSearch" on="submit"}} method="post">
+		{{view Ember.TextField valueBinding="searchTerm" placeholder="Search subscribed feeds." class="search_field"}}
+		<center>
+			<input name="commit" type="submit" value="Search">
+		</center>
+	</form>
+</div>
+
+<br />
+
+<a href="/feeds/add" class="regular_link">Add Feeds</a><br>
+<a href="/feeds" class="regular_link">Manage Feeds</a><br><br>
+<a href="/settings" class="regular_link">Manage Read Later</a><br>
+<a href="/filters" class="regular_link">Manage Filters</a><br><br>
+<a href="/settings/account" class="regular_link">Account</a><br>
+<a {{action logOut bubbles=false}} href="#">Log out</a><br>  

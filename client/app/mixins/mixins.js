@@ -1,0 +1,1 @@
+require("app/mixins/loadable_route.js");

@@ -1,0 +1,40 @@
+<div class="stream_item">
+	<div {{bindAttr class=":stream_item-title read"}}>
+		<div class="container">
+
+			<div class="stream_item-right">
+				<span class="stream_item-link" {{action "openUrl" url bubbles=false}}>
+					<img alt="Box_expand@2x" height="20" src="/fw/assets/box_expand@2x-ef4b2444c9ab5953ef0de9af26f059e9.png" width="20">
+				</span>
+				<span class="stream_item-link" {{action "toggleReadLater" this bubbles=false}} tag="Read Later">
+					{{#if read_later}}
+						<img alt="Sendtoinstapaper@2x" height="20" src="/fw/assets/check@2x.png" width="25">
+					{{else}}
+						<img alt="Sendtoinstapaper@2x" height="20" src="/fw/assets/sendToInstapaper@2x-2e4b97029458fcad4cdd1e875d5693d8.png" width="25">
+					{{/if}}
+				</span>
+				<span class="stream_item-link" {{action "toggleStar" this bubbles=false}}>
+					{{#if starred}}
+						<img alt="Empty_star@2x" height="20" src="/fw/assets/full_star@2x-f75dbdd4fa02f4d13d8c24e904d4b65c.png" width="20">
+					{{else}}
+						<img alt="Empty_star@2x" height="20" src="/fw/assets/empty_star@2x-e77dea070919f570bf69ebd9b0c9067c.png" width="20">
+					{{/if}}
+				</span>
+			</div>
+
+			<div class="stream_item-title-text">
+				{{title}}
+			</div>
+			<div class="stream-item-subtitle">
+				{{#linkTo feed this.feed bubbles=false}}{{feed_name}}{{/linkTo}}
+				<span class="stream_item-time">{{timeAgo published_at}}</span>
+			</div>
+		</div>
+	</div>
+	
+	{{#if view.isShowingBody}}
+		<div class="stream_item_body">
+			{{{body}}}
+		</div>
+	{{/if}}
+</div>

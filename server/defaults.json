@@ -8,6 +8,6 @@
   "STATIC_SERVER": {
     "PORT": 3000,
     "HOST": "0.0.0.0",
-    "ROOT": "../client/"
+    "ROOT": "client/public/"
   }
 }

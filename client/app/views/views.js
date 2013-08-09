@@ -1,0 +1,1 @@
+require("app/views/feed_item_view.js");
