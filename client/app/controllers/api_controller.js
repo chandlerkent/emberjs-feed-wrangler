@@ -54,28 +54,29 @@ var APIController = JSONRequestController.extend({
     var c = App.getPreambledConsole("APIController.getJSON");
     var self = this;
     
-    var promise = new Ember.RSVP.Promise(function(resolve, reject) {
-      self._super(url)
-      .then(function(data) {
-        c.log("received", data);
-        if (data.error == null) {
-          if (part && data.hasOwnProperty(part)) {
-            c.log("returning only", part);
-            data = data[part];
-          }
-          resolve(data);
+    var deferred = Ember.RSVP.defer();
+    
+    var promise = this._super(url);
+    promise.then(function(data) {
+      c.log("received", data);
+      if (data.error === null) {
+        if (part && data.hasOwnProperty(part)) {
+          c.log("returning only", part);
+          data = data[part];
         }
-        else {
-          reject(data.error); 
-        }
-      },
-      function(data) {
-        c.error("getJSON failed.", data);
-        reject("unknown failure");
-      });
+        deferred.resolve(data);
+      }
+      else {
+        c.error("bad request", data);
+        deferred.reject(data.error); 
+      }
+    });
+    promise.then(null, function(data) {
+      c.error("unknown error", data);
+      deferred.reject({ error: "Unknown failure" });
     });
     
-    return promise;
+    return deferred.promise;
   },
   
   getJSONAndTransform: function(url, part, mapFn) {
