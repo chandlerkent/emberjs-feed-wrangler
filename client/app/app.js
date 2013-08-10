@@ -10,6 +10,11 @@ require("dependencies/compiled/templates");
 
 App = Ember.Application.create({
   LOG_TRANSITIONS: true,
+  rootElement: "#app",
+  
+  ready: function() {
+    $("#app .loading").remove();
+  },
   
   getPreambledConsole: function(preamble) {
     preamble += ":";
