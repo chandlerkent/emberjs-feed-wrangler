@@ -1,4 +1,4 @@
-/* global APIController, FeedItemsController */
+/* global APIController, FeedItemsController, CONFIG */
 
 // Dependencies
 require("dependencies/jquery-1.9.1.js");

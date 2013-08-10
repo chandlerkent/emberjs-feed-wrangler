@@ -1,3 +1,5 @@
+/* global process, module */
+
 var defaults = require("./defaults.json");
 
 var CONFIG = {
@@ -46,6 +48,6 @@ var mergeDefaults = function mergeDefaults(config, defaults, _result) {
   return _result;
 };
 
-var final = mergeDefaults(CONFIG, defaults);
+var merged = mergeDefaults(CONFIG, defaults);
 
-module.exports = final;
+module.exports = merged;

@@ -21,7 +21,6 @@
     "Ember": true,
     "console": true,
     "App": true,
-    "CONFIG": false,
     "$": false
   }
 }

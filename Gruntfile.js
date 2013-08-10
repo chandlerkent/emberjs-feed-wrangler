@@ -20,7 +20,7 @@ module.exports = function(grunt) {
     */
     neuter: {
       options: {
-        //includeSourceURL: true,
+        includeSourceURL: true,
         template: "{%= src %}",
         filepathTransform: function(filepath) {
           filepath = "client/" + filepath;
@@ -63,6 +63,10 @@ module.exports = function(grunt) {
       handlebars_templates: {
         files: ['client/app/**/*.hbs'],
         tasks: ['emberTemplates', 'neuter']
+      },
+      server_code: {
+        files: ["server/**/*.js"],
+        tasks: ["jshint"]
       }
     },
 
@@ -82,7 +86,7 @@ module.exports = function(grunt) {
       support files.
     */
     jshint: {
-      all: ['Gruntfile.js', 'client/app/**/*.js', '!client/dependencies/*.*'],
+      all: ['Gruntfile.js', 'client/app/**/*.js', "server/**/*.js", '!client/dependencies/*.*'],
       options: {
         jshintrc: '.jshintrc'
       }

@@ -38,6 +38,6 @@ s.on("listening", function() {
 });
 
 statik({
-    port: CONFIG.STATIC_SERVER.PORT,
-    root: CONFIG.STATIC_SERVER.ROOT
+  port: CONFIG.STATIC_SERVER.PORT,
+  root: CONFIG.STATIC_SERVER.ROOT
 });
