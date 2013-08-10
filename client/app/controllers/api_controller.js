@@ -1,8 +1,9 @@
-/* global WorkCoalescingController */
+/* global WorkCoalescingController, JSONRequestController, DelayedJSONRequestController */
 
 require("app/controllers/work_coalescing_controller");
+require("app/controllers/json_request_controller");
 
-var APIController = Ember.Object.extend({
+var APIController = JSONRequestController.extend({
   baseUrl: "",
   apiToken: "",
   clientKey: "",
@@ -51,10 +52,11 @@ var APIController = Ember.Object.extend({
   
   getJSON: function(url, part) {
     var c = App.getPreambledConsole("APIController.getJSON");
+    var self = this;
     
     var promise = new Ember.RSVP.Promise(function(resolve, reject) {
-      $.getJSON(url)
-      .done(function(data) {
+      self._super(url)
+      .then(function(data) {
         c.log("received", data);
         if (data.error == null) {
           if (part && data.hasOwnProperty(part)) {
@@ -66,8 +68,8 @@ var APIController = Ember.Object.extend({
         else {
           reject(data.error); 
         }
-      })
-      .fail(function(data) {
+      },
+      function(data) {
         c.error("getJSON failed.", data);
         reject("unknown failure");
       });

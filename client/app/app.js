@@ -12,8 +12,9 @@ App = Ember.Application.create({
   LOG_TRANSITIONS: true,
   rootElement: "#app",
   
-  ready: function() {
+  removeLoading: function() {
     $("#app .loading").remove();
+    $("body.loading").removeClass("loading");
   },
   
   getPreambledConsole: function(preamble) {

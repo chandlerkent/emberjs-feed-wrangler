@@ -1,11 +1,24 @@
+/* globals DelayedWorkController */
+
+require("app/controllers/delayed_work_controller");
+
 App.ApplicationRoute = Ember.Route.extend({
   renderTemplate: function() {
     this._super();
     
-    this.render('sidebar', {
-      outlet: 'sidebar',
-      into: "application",
-      controller: this.controllerFor("sidebar")
+    var self = this;
+    
+    // delay this work so the loading of the data doesn't block rendering
+    var delayedWorkController = DelayedWorkController.create({
+      timerInterval: 0 
+    });
+    delayedWorkController.scheduleWork()
+    .then(function() {
+      self.render('sidebar', {
+        outlet: 'sidebar',
+        into: "application",
+        controller: self.controllerFor("sidebar")
+      });
     });
   },
   
