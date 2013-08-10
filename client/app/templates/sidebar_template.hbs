@@ -16,12 +16,18 @@
 
 <div class="stream-config">
 		<h4>Smart Streams</h4>
-		<p>
-			{{#each streams}}
-				{{#linkTo 'stream' this classNames="regular_link"}}{{title}}{{/linkTo}}
-				<br />
-			{{/each}}
-		</p>
+    {{#if isLoading}}
+      <p>
+        <center>Loading...</center>
+      </p>
+    {{else}}
+      <p>
+        {{#each streams}}
+          {{#linkTo 'stream' this classNames="regular_link"}}{{title}}{{/linkTo}}
+          <br />
+        {{/each}}
+      </p>
+    {{/if}}
 		<center>
 			<a href="/streams/new">Create</a>
 		</center>

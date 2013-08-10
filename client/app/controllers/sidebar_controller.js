@@ -2,6 +2,7 @@ App.SidebarController = Ember.ArrayController.extend({
   streams: [],
   searchTerm: null,
   needs: "login",
+  isLoading: false,
 
   init: function() {
     this._super();
@@ -15,6 +16,8 @@ App.SidebarController = Ember.ArrayController.extend({
       return;
     }
     
+    this.set("isLoading", true);
+    
     var self = this;
     App.API.getJSONAndTransform(App.API.constructApiUrl("streams/list/"), "streams", function(datum) {
         datum.id = datum.stream_id;
@@ -22,8 +25,10 @@ App.SidebarController = Ember.ArrayController.extend({
       })
     .then(function(data) {
       self.set("streams", data);
+      self.set("isLoading", false);
     }, function() {
       self.set("streams", []);
+      self.set("isLoading", false);
     });
   }.observes("App.API.isAuthenticated"),
   
