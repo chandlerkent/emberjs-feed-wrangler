@@ -32,11 +32,5 @@ App.LoginController = Ember.Controller.extend({
     function(value) {
       self.set("errorMessage", value);
     });
-  },
-  
-  logOut: function() {
-    App.API.getJSON(App.API.constructApiUrl("users/logout/"));
-    App.API.set("apiToken", null);
-    this.transitionToRoute("login");
   }
 });
