@@ -3,8 +3,8 @@
 var defaults = require("./defaults.json");
 
 var CONFIG = {
-  PORT: process.env.SERVER_PORT,
-  HOST: process.env.SERVER_HOST,
+  PORT: process.env.PORT,
+  HOST: process.env.HOST,
   FEED_WRANGLER: {
     PORT: process.env.FEED_WRANGLER_PORT,
     HOST: process.env.FEED_WRANGLER_HOST,

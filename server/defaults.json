@@ -1,6 +1,4 @@
 {
-  "PORT": 8080,
-  "HOST": "0.0.0.0",
   "FEED_WRANGLER": {
     "PORT": 80,
     "HOST": "feedwrangler.net"
