@@ -4,7 +4,7 @@
 require("dependencies/jquery-1.9.1.js");
 require("dependencies/handlebars.runtime.js");
 require("dependencies/ember-1.0.0-rc.6.1.js");
-require("dependencies/jquery.hotkeys.js");
+require("dependencies/mousetrap.min.js");
 
 // Templates
 require("dependencies/compiled/templates");

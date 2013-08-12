@@ -22,19 +22,11 @@ App.ApplicationRoute = Ember.Route.extend({
     });
   },
   
-  events: {
-    openUrl: function(url) {
-      window.open(url);
-    },
-    
-    toggleReadLater: function(model) {
-      App.API.updateFeedItem(model, { read_later: !model.get("read_later") });
-    },
-    
-    toggleStar: function(model) {
-      App.API.updateFeedItem(model, { starred: !model.get("starred") });
-    },
-    
+  openUrl: function(url) {
+    window.open(url);
+  },
+  
+  events: {    
     markAllRead: function(models) {
       var cachedModels = {};
       var ids = [];
