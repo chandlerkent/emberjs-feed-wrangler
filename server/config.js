@@ -11,8 +11,6 @@ var CONFIG = {
     CLIENT_KEY: process.env.FEED_WRANGLER_CLIENT_KEY
   },
   STATIC_SERVER: {
-    PORT: process.env.STATIC_SERVER_PORT,
-    HOST: process.env.STATIC_SERVER_HOST,
     ROOT: process.env.STATIC_SERVER_ROOT
   }
 };

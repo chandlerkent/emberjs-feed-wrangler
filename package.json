@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "http-proxy": "0.10.x",
-    "statik": "1.4.x"
+    "node-static": "~0.7.0"
   },
   "devDependencies": {
     "grunt": "~0.4.0",

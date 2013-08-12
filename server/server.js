@@ -1,9 +1,11 @@
 var http = require('http');
 var httpProxy = require('http-proxy');
-var statik = require("statik");
+var static = require("node-static");
 var CONFIG = require("./config");
 
 console.log("CONFIG:", CONFIG);
+
+var fileServer = new static.Server(CONFIG.STATIC_SERVER.ROOT);
 
 var s = httpProxy.createServer(function (req, res, proxy) {
   if (req.url.indexOf("/fw") === 0) {
@@ -24,10 +26,7 @@ var s = httpProxy.createServer(function (req, res, proxy) {
   }
   else {
     console.log("Proxying to static site", req.url);
-    proxy.proxyRequest(req, res, {
-      host: CONFIG.STATIC_SERVER.HOST,
-      port: CONFIG.STATIC_SERVER.PORT
-    });
+    fileServer.serve(req, res);
   }
 });
 
@@ -35,9 +34,4 @@ s.listen(CONFIG.PORT, CONFIG.HOST);
 
 s.on("listening", function() {
   console.log("LISTENING", CONFIG.PORT, CONFIG.HOST);
-});
-
-statik({
-  port: CONFIG.STATIC_SERVER.PORT,
-  root: CONFIG.STATIC_SERVER.ROOT
 });
