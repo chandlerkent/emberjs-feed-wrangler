@@ -116,11 +116,10 @@ var APIController = JSONRequestController.extend({
       model.setProperties(props);
       App.API.getJSON(App.API.constructApiUrl("feed_items/update/", dataNew), "feed_item")
       .then(function(result) {
-        model.setProperties(result);
         resolve(model);
       }, function(error) {
         model.setProperties(dataOrig);
-        reject(error);       
+        reject(error);   
       });
     });
     
