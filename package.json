@@ -25,5 +25,8 @@
   "repository": "https://github.com/chandlerkent/emberjs-feed-wrangler",
   "author": "chandler.kent@gmail.com",
   "license": "MIT",
-  "engine": "node >= 0.10.11"
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.2.x"
+  }
 }
