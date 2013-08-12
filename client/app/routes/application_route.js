@@ -22,10 +22,6 @@ App.ApplicationRoute = Ember.Route.extend({
     });
   },
   
-  openUrl: function(url) {
-    window.open(url);
-  },
-  
   events: {    
     markAllRead: function(models) {
       var cachedModels = {};

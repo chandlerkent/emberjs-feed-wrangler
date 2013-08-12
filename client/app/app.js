@@ -21,6 +21,7 @@ App = Ember.Application.create({
   getPreambledConsole: function(preamble) {
     preamble += ":";
     var unshift = [].unshift;
+    console = console || function() {};
     return {
       info: function() {
         unshift.call(arguments, preamble);

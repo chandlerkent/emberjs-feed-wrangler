@@ -24,6 +24,8 @@ App.FeedItemsView = Ember.View.extend({
   },
   
   didInsertElement: function() {
+    window.scrollTo(0, 0);
+    
     var self = this;
     
     Mousetrap.bind(["j", "n"], function() {
@@ -35,7 +37,7 @@ App.FeedItemsView = Ember.View.extend({
     });
     
     Mousetrap.bind(["s", "l"], function() {
-      self.get("controller").send("toggleSelectedItemStar");
+      self.get("controller").send("toggleSelectedItemStarred");
     });
     
     Mousetrap.bind("o", function() {
@@ -58,16 +60,5 @@ App.FeedItemsView = Ember.View.extend({
     }
     
     return el[0];
-  },
-  
-  getSelectedItem: function() {
-    var el = this.getSelectedElement();
-    
-    var view = Ember.View.views[$(el).attr('id')];
-    if (Ember.isNone(view)) {
-      return null; 
-    }
-    
-    return view.get("content");
   }
 });

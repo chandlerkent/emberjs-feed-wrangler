@@ -34,14 +34,6 @@ var FeedItemsController = Ember.ArrayController.extend({
     return this.indexOf(this.get("selectedItem"));
   }.property("selectedItem"),
   
-  markItemRead: function(model) {
-    if (model.get("read")) {
-      return;
-    }
-    
-    App.API.markFeedItemRead(model);
-  },
-  
   selectNextItem: function() {
     if (Ember.isNone(this.get("selectedItem"))) {
       this.didSelectItem(this.get("firstObject"));
@@ -81,32 +73,73 @@ var FeedItemsController = Ember.ArrayController.extend({
     a.dispatchEvent(evt);
   },
     
-  openSelectedItem: function() {
-    this.openUrl(this.get("selectedItem").get("url"));
+  openItem: function(model) {
+    if (Ember.isNone(model)) {
+      return; 
+    }
+    
+    this.openUrl(model.get("url"));
   },
     
-  saveSelectedItemToReadLater: function() {
+  openSelectedItem: function() {
+    this.openItem(this.get("selectedItem"));
+  },
+    
+  markItemRead: function(model) {
+    if (Ember.isNone("model")) {
+      return;
+    }
+      
+    if (model.get("read")) {
+      return;
+    }
+    
+    App.API.markFeedItemRead(model);
+  },
+    
+  markSelectedItemRead: function() {
     var model = this.get("selectedItem");
+    
+    App.API.markFeedItemRead(this.get("selectedItem"));
+  },
+
+  saveItemToReadLater: function(model) {
+    if (Ember.isNone(model)) {
+      return; 
+    }
+    
     if (model.get("read_later")) {
       return; 
     }
         
     App.API.updateFeedItem(model, { read_later: true });
   },
+    
+  saveSelectedItemToReadLater: function() {
+    this.saveItemToReadLater(this.get("selectedItem"));
+  },
         
-  toggleStar: function(model) {
+  toggleItemStarred: function(model) {
+    if (Ember.isNone(model)) {
+      return; 
+    }
+    
     App.API.updateFeedItem(model, { starred: !model.get("starred") });
   },
   
-  toggleSelectedItemStar: function() {
-    this.toggleStar(this.get("selectedItem"));
+  toggleSelectedItemStarred: function() {
+    this.toggleItemStarred(this.get("selectedItem"));
   },
 
   toggleRead: function(model) {
+    if (Ember.isNone(model)) {
+      return; 
+    }
+    
     App.API.updateFeedItem(model, { read: !model.get("read") });
   },
     
-  toggleSelectedItemRead: function(model) {
+  toggleSelectedItemRead: function() {
     this.toggleRead(this.get("selectedItem"));
   }
 });
