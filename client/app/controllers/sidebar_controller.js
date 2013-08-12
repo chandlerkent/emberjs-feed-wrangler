@@ -1,7 +1,9 @@
 App.SidebarController = Ember.ArrayController.extend({
+  needs: ["login", "unread"],
   streams: [],
+  unread: null,
+  unreadBinding: "controllers.unread",
   searchTerm: null,
-  needs: "login",
   isLoading: false,
 
   init: function() {

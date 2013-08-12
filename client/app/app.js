@@ -4,6 +4,7 @@
 require("dependencies/jquery-1.9.1.js");
 require("dependencies/handlebars.runtime.js");
 require("dependencies/ember-1.0.0-rc.6.1.js");
+require("dependencies/jquery.hotkeys.js");
 
 // Templates
 require("dependencies/compiled/templates");
@@ -56,6 +57,6 @@ App.API = APIController.create({
   clientKey: CONFIG.client_key
 });
 
-App.UnreadController = App.NewsfeedController = App.NewsfeedSearchController = App.StarredController = App.FeedController = App.StreamController = FeedItemsController.extend({
+App.NewsfeedController = App.NewsfeedSearchController = App.StarredController = App.FeedController = App.StreamController = FeedItemsController.extend({
   
 });
