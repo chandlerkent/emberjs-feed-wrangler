@@ -18,7 +18,7 @@ eval("var LoadableRoute = Ember.Mixin.create({\n  setupParameters: function(cont
 
 eval("App.Singleton = Ember.Mixin.create({\n  current: function() {\n    if (!this._current) {\n      this._current = this.createCurrent();\n    }\n\n    return this._current;\n  },\n  \n  createCurrent: function() {\n    return this.create({});\n  },\n\n  currentProp: function(property, value) {\n    var instance = this.current();\n    if (!instance) { return; }\n\n    if (typeof(value) !== \"undefined\") {\n      instance.set(property, value);\n      return value;\n    } else {\n      return instance.get(property);\n    }\n  }\n});//@ sourceURL=client/app/mixins/singleton.js")
 
-eval("var ScrollWindowToTopRoute = Ember.Mixin.create({\n  activate: function() {\n    this._super();\n    \n    window.scrollTo(0, 0);\n  }\n});//@ sourceURL=client/app/mixins/scroll_window_to_top_route.js")
+eval("var ScrollWindowToTopRoute = Ember.Mixin.create({\n  beforeModel: function(transition) {\n    this._super(transition);\n    \n    window.scrollTo(0, 0);\n  }\n});//@ sourceURL=client/app/mixins/scroll_window_to_top_route.js")
 
 eval("/* global moment */\n//@ sourceURL=client/app/helpers/time_ago.js")
 
@@ -46,9 +46,9 @@ eval("/* global FeedItemsBaseRoute */\n\nApp.FeedRoute = FeedItemsBaseRoute.exte
 
 eval("App.IndexRoute = Ember.Route.extend({\n  redirect: function() {\n    this.transitionTo(\"unread\");\n  }\n});//@ sourceURL=client/app/routes/index_route.js")
 
-eval("/* globals ScrollWindowToTopRoute */\n\nApp.LoginRoute = Ember.Route.extend(ScrollWindowToTopRoute, {\n  redirect: function() {\n    if (App.SessionController.currentProp(\"isAuthenticated\")) {\n      this.transitionTo(\"index\"); \n    }\n  },\n  \n  setupController: function(controller) {\n    controller.reset(); \n  }\n});//@ sourceURL=client/app/routes/login_route.js")
+eval("/* globals ScrollWindowToTopRoute */\n\nApp.LoginRoute = Ember.Route.extend(ScrollWindowToTopRoute, {\n  redirect: function() {\n    if (App.SessionController.get(\"isAuthenticated\")) {\n      this.transitionTo(\"index\"); \n    }\n  },\n  \n  setupController: function(controller) {\n    controller.reset(); \n  }\n});//@ sourceURL=client/app/routes/login_route.js")
 
-eval("App.LogoutRoute = Ember.Route.extend({\n  activate: function() {\n    App.SessionController.current().logOut();\n    \n    this.transitionTo(\"index\");\n  }\n});//@ sourceURL=client/app/routes/logout_route.js")
+eval("App.LogoutRoute = Ember.Route.extend({\n  activate: function() {\n    App.SessionController.logOut();\n    \n    this.transitionTo(\"index\");\n  }\n});//@ sourceURL=client/app/routes/logout_route.js")
 
 eval("/* global FeedItemsBaseRoute */\n\nApp.NewsfeedRoute = FeedItemsBaseRoute.extend({\n\tmodel: function() {\n    return App.API.getFeedItems(App.API.constructApiUrl(\"feed_items/list/\"));\n\t}\n});\n//@ sourceURL=client/app/routes/newsfeed_route.js")
 

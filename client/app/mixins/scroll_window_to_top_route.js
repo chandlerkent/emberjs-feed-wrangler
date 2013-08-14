@@ -1,6 +1,6 @@
 var ScrollWindowToTopRoute = Ember.Mixin.create({
-  activate: function() {
-    this._super();
+  beforeModel: function(transition) {
+    this._super(transition);
     
     window.scrollTo(0, 0);
   }
