@@ -5,7 +5,6 @@ require("app/controllers/json_request_controller");
 
 var APIController = JSONRequestController.extend({
   baseUrl: "",
-  apiToken: "",
   clientKey: "",
   
   _itemsToMarkRead: null,
@@ -41,7 +40,7 @@ var APIController = JSONRequestController.extend({
     var c = App.getPreambledConsole("APIController.constructApiUrl");
     
     params = params || {};
-    params["access_token"] = params["access_token"] || this.get("apiToken");
+    params["access_token"] = params["access_token"] || App.SessionController.currentProp("apiToken");
     params["client_key"] = params["client_key"] || this.get("clientKey");
     var url = "%@%@?%@".fmt(this.get("baseUrl"), path, this.buildQueryStringFromObject(params));
     
@@ -150,16 +149,5 @@ var APIController = JSONRequestController.extend({
     }
     
     return App.API.getJSON(App.API.constructApiUrl("feed_items/mark_all_read", { feed_item_ids: feedItemIds.join(",") }), "feed_items");
-  },
-  
-  isAuthenticated: function() {
-    return (!Ember.isEmpty(this.get("apiToken"))); 
-  }.property("apiToken"),
-  
-  apiTokenChanged: function() {
-    localStorage.apiToken = this.get("apiToken");
-    if (Ember.isEmpty(this.get("apiToken"))) {
-      delete localStorage.apiToken; 
-    }
-  }.observes("apiToken")
+  }
 });

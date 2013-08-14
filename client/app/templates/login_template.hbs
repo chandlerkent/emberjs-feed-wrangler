@@ -1,12 +1,21 @@
-<form {{action login on="submit"}}>
-	<h2>Log In</h2>
-	{{input value=email type="text" placeholder="Email"}}
-	{{input value=password type="password" placeholder="Password"}}
-	{{input type="submit" value="Log In"}}
-</form>
-{{#if errorMessage}}
-	<div class="error">
-		<h2>Login Failed!</h2>
-		<h3>{{errorMessage}}</h3>
-	</div>
+<h2>Log In</h2>
+{{#if isWorking}}
+  Authenticating...
+{{else}}
+  <form {{action login on="submit"}}>
+    {{input value=email type="text" placeholder="Email"}}
+    {{input value=password type="password" placeholder="Password"}}
+    {{input type="submit" value="Log In"}}
+    <br />
+    <label>
+      {{view Ember.Checkbox checkedBinding="shouldRememberLogin"}}
+      Remember my credentials
+    </label>
+  </form>
+  {{#if errorMessage}}
+    <div class="error">
+      <h2>Login Failed!</h2>
+      <h3>{{errorMessage}}</h3>
+    </div>
+  {{/if}}
 {{/if}}

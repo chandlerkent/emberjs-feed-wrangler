@@ -3,34 +3,42 @@ App.LoginController = Ember.Controller.extend({
   password: null,
   errorMessage: null,
   attemptedTransition: null,
-
+  shouldRememberLogin: false,
+  isWorking: false,
+  
   reset: function() {
     this.setProperties({
       email: "",
       password: "",
       errorMessage: "",
-      attemptedTransition: null
+      shouldRememberLogin: false,
+      attemptedTransition: null,
+      isWorking: false
     });
   },
   
-  login: function() {
-    var data = this.getProperties("email", "password");
-    var self = this;
+  login: function() {    
+    this.set("errorMessage", "");
+    this.set("isWorking", true);
     
-    App.API.getJSON(App.API.constructApiUrl("users/authorize/", data))
-    .then(function(response) {
-      App.API.set("apiToken", response["access_token"]);
-      App.API.set("errorMessage", "");
-      var transition = self.get("attemptedTransition");
-      if (!Ember.isNone(transition)) {
-        transition.retry();
-      } else {
-        self.transitionToRoute("index");
+    var self = this;
+    App.SessionController.current().logIn(this.get("email"), this.get("password"), this.get("shouldRememberLogin"))
+    .then(
+      function() {
+        self.set("errorMessage", "");
+        
+        var transition = self.get("attemptedTransition");
+        if (!Ember.isNone(transition)) {
+          transition.retry();
+        } else {
+          self.transitionToRoute("index");
+        }
+        self.set("attemptedTransition", null);
+      },
+      function(error) {
+        self.set("errorMessage", error);
+        self.set("isWorking", false);
       }
-      self.set("attemptedTransition", null);
-    },
-    function(value) {
-      self.set("errorMessage", value);
-    });
+     );
   }
 });

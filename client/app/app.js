@@ -54,7 +54,6 @@ require("app/controllers/controllers.js");
 
 App.API = APIController.create({
   baseUrl: "/fw/api/v2/",
-  apiToken: localStorage.apiToken,
   clientKey: CONFIG.client_key
 });
 

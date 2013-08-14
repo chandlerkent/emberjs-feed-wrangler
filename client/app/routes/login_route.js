@@ -1,6 +1,6 @@
 App.LoginRoute = Ember.Route.extend({
   redirect: function() {
-    if (App.API.get("isAuthenticated")) {
+    if (App.SessionController.currentProp("isAuthenticated")) {
       this.transitionTo("index"); 
     }
   },
