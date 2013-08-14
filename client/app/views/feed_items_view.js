@@ -20,6 +20,10 @@ App.FeedItemsView = Ember.View.extend({
                                       
   openItemBody: function(el) {
     var view = Ember.View.views[$(el).parent(".ember-view").attr("id")];
+    if (Ember.isNone(view)) {
+      return;
+    }
+ 
     view.set("isShowingBody", true);
   },
   
