@@ -40,7 +40,7 @@ var APIController = JSONRequestController.extend({
     var c = App.getPreambledConsole("APIController.constructApiUrl");
     
     params = params || {};
-    params["access_token"] = params["access_token"] || App.SessionController.currentProp("apiToken");
+    params["access_token"] = params["access_token"] || App.SessionController.get("apiToken");
     params["client_key"] = params["client_key"] || this.get("clientKey");
     var url = "%@%@?%@".fmt(this.get("baseUrl"), path, this.buildQueryStringFromObject(params));
     

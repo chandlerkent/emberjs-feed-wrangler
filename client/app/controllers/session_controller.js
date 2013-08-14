@@ -59,12 +59,6 @@ App.SessionController = Ember.Object.extend({
     
     App.API.getJSON(App.API.constructApiUrl("users/logout/", { "access_token": previousToken }));
   }
-});
-
-App.SessionController.reopenClass(App.Singleton,  {
-  createCurrent: function() {
-    return App.SessionController.create({
-      apiToken: $.cookie(App.AUTH_COOKIE.NAME)
-    });
-  }
+}).create({
+  apiToken: $.cookie(App.AUTH_COOKIE.NAME)
 });

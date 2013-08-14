@@ -8,12 +8,12 @@ App.SidebarController = Ember.ArrayController.extend({
 
   init: function() {
     this._super();
-    
+
     this.loadStreams();
   },
   
   loadStreams: function() {
-    if (!App.API.get("isAuthenticated")) {
+    if (!App.SessionController.get("isAuthenticated")) {
       this.set("streams", []);
       return;
     }
@@ -32,7 +32,7 @@ App.SidebarController = Ember.ArrayController.extend({
       self.set("streams", []);
       self.set("isLoading", false);
     });
-  }.observes("App.API.isAuthenticated"),
+  }.observes("App.SessionController.isAuthenticated"),
   
   didSearch: function() {
     this.transitionToRoute("newsfeed-search", this.get("searchTerm"));
