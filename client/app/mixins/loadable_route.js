@@ -4,7 +4,7 @@ var LoadableRoute = Ember.Mixin.create({
   },
   
   modelIsResolved: function(model) {
-    return (model && Ember.isArray(model));
+    return (!Ember.isNone(model) && Ember.isArray(model));
   },
   
   setupController: function(controller, model) {

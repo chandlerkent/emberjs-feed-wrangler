@@ -5,7 +5,7 @@ require("app/routes/index_route.js");
 require("app/routes/login_route.js");
 require("app/routes/logout_route.js");
 require("app/routes/newsfeed_route.js");
-require("app/routes/newsfeed_search_routes.js");
+require("app/routes/newsfeed_search_route.js");
 require("app/routes/starred_route.js");
 require("app/routes/stream_route.js");
 require("app/routes/unread_route.js");
