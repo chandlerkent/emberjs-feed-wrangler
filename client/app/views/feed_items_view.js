@@ -27,9 +27,7 @@ App.FeedItemsView = Ember.View.extend({
     view.set("isShowingBody", true);
   },
   
-  didInsertElement: function() {
-    window.scrollTo(0, 0);
-    
+  didInsertElement: function() {    
     var self = this;
     
     Mousetrap.bind(["j", "n"], function() {

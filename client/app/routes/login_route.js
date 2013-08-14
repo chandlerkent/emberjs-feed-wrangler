@@ -1,4 +1,6 @@
-App.LoginRoute = Ember.Route.extend({
+/* globals ScrollWindowToTopRoute */
+
+App.LoginRoute = Ember.Route.extend(ScrollWindowToTopRoute, {
   redirect: function() {
     if (App.SessionController.currentProp("isAuthenticated")) {
       this.transitionTo("index"); 

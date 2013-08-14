@@ -1,6 +1,6 @@
-/* global AuthenticatedRoute, LoadableRoute */
+/* global FeedItemsBaseRoute */
 
-App.NewsfeedSearchRoute = AuthenticatedRoute.extend(LoadableRoute, {
+App.NewsfeedSearchRoute = FeedItemsBaseRoute.extend({
   setupParameters: function(controller, model) {
     return { search_term: model };
   },

@@ -1,6 +1,6 @@
-/* global AuthenticatedRoute, LoadableRoute */
+/* global FeedItemsBaseRoute */
 
-App.NewsfeedRoute = AuthenticatedRoute.extend(LoadableRoute, {
+App.NewsfeedRoute = FeedItemsBaseRoute.extend({
 	model: function() {
     return App.API.getFeedItems(App.API.constructApiUrl("feed_items/list/"));
 	}

@@ -1,6 +1,6 @@
-/* global AuthenticatedRoute, LoadableRoute */
+/* global FeedItemsBaseRoute */
 
-App.UnreadRoute = AuthenticatedRoute.extend(LoadableRoute, {
+App.UnreadRoute = FeedItemsBaseRoute.extend({
 	model: function() {
     return App.API.getFeedItems(App.API.constructApiUrl("feed_items/list/", { read: false }));
 	}

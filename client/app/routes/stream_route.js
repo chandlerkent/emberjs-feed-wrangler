@@ -1,6 +1,6 @@
-/* global AuthenticatedRoute, LoadableRoute */
+/* global FeedItemsBaseRoute */
 
-App.StreamRoute = AuthenticatedRoute.extend(LoadableRoute, {
+App.StreamRoute = FeedItemsBaseRoute.extend({
 	setupParameters: function(controller, model) {
     return { stream_id: model.id };
 	},

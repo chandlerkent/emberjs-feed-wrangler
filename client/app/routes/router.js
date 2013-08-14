@@ -1,5 +1,6 @@
 require("app/routes/application_route.js");
 require("app/routes/authenticated_route.js");
+require("app/routes/feed_items_base_route");
 require("app/routes/feed_route.js");
 require("app/routes/index_route.js");
 require("app/routes/login_route.js");

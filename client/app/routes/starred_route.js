@@ -1,6 +1,6 @@
-/* global AuthenticatedRoute, LoadableRoute */
+/* global FeedItemsBaseRoute */
 
-App.StarredRoute = AuthenticatedRoute.extend(LoadableRoute, {
+App.StarredRoute = FeedItemsBaseRoute.extend({
 	model: function() {
     return App.API.getFeedItems(App.API.constructApiUrl("feed_items/list/", { starred: true }));
 	}
