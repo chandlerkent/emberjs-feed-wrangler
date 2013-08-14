@@ -22,7 +22,7 @@ App.LoginController = Ember.Controller.extend({
     this.set("isWorking", true);
     
     var self = this;
-    App.SessionController.current().logIn(this.get("email"), this.get("password"), this.get("shouldRememberLogin"))
+    App.SessionController.logIn(this.get("email"), this.get("password"), this.get("shouldRememberLogin"))
     .then(
       function() {
         self.set("errorMessage", "");
