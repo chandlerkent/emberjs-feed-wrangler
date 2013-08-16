@@ -41,7 +41,7 @@ var FeedItemsController = Ember.ArrayController.extend({
     }
     
     var newIndex = Math.min((this.get("selectedItemIndex") + 1), (this.get("length") - 1));
-    
+  
     this.didSelectItem(this.objectAt(newIndex));
   },
   
@@ -52,6 +52,10 @@ var FeedItemsController = Ember.ArrayController.extend({
     }
     
     var newIndex = Math.max((this.get("selectedItemIndex") - 1), 0);
+    
+    if (newIndex === this.get("selectedItemIndex")) {
+      window.scrollTo(0, 0);
+    }
     
     this.didSelectItem(this.objectAt(newIndex));
   },
