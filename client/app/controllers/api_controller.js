@@ -49,6 +49,34 @@ var APIController = JSONRequestController.extend({
     return url;
   },
   
+  _testSuccess: function(wait) {
+    wait = wait || 2000;
+    
+    return Ember.RSVP.Promise(function(resolve, reject) { window.setTimeout(function() { resolve(true); }, wait); });
+  },
+  
+  _testFailure: function(wait) {
+    wait = wait || 2000;
+    
+    return Ember.RSVP.Promise(function(resolve, reject) { window.setTimeout(function() { resolve(true); }, wait); });
+  },
+  
+  _testRandom: function(wait) {
+    wait = wait || 2000;
+    
+    return Ember.RSVP.Promise(function(resolve, reject) {
+      window.setTimeout(function() { 
+        var random = Math.floor(Math.random()*1001);
+        if (random % 2) {
+          resolve(true);
+        }
+        else {
+          reject(false);
+        }
+      }, wait);
+    });
+  },
+  
   getJSON: function(url, part) {
     var c = App.getPreambledConsole("APIController.getJSON");
     var self = this;
@@ -149,5 +177,17 @@ var APIController = JSONRequestController.extend({
     }
     
     return App.API.getJSON(App.API.constructApiUrl("feed_items/mark_all_read", { feed_item_ids: feedItemIds.join(",") }), "feed_items");
+  },
+  
+  unsubscribeFromFeed: function(feedId) {
+    var data = { "feed_id": feedId };
+    
+    return App.API.getJSON(App.API.constructApiUrl("subscriptions/remove_feed/", data));
+  },
+  
+  subscribeToUrl: function(url) {
+    var data = { "feed_url": url };
+    
+    return App.API.getJSON(App.API.constructApiUrl("/subscriptions/add_feed/", data));
   }
 });

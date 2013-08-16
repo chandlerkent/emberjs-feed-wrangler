@@ -49,15 +49,6 @@ App.ApplicationRoute = Ember.Route.extend({
           model.set("read", cachedStatuses[model.get("id")]);
         });
       });
-    },
-    
-    unsubscribe: function(feedItems) {
-      if (feedItems.length <= 0) {
-        return;
-      }
-      
-      var props = feedItems[0].getProperties("feed_id");
-      App.API.getJSON(App.API.constructApiUrl("subscriptions/remove_feed/", props));
     }
   }
 });

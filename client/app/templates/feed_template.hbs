@@ -1,7 +1,7 @@
 <div class="edit-button">
 	<a href="#" {{action "markAllRead" model}}>Mark All Read</a>
 	:
-	<a href="#" {{action "unsubscribe" model}}>Unsubscribe</a>
+	<a href="#" {{action "unsubscribe" model.firstObject.feed}}>Unsubscribe</a>
 </div>
 
 {{partial "feed_items"}}

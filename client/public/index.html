@@ -41,6 +41,18 @@
     {
       display: none; 
     }
+    .feed_setup
+    {
+      transition: opacity .5s;
+    }
+    .feed_setup.working, .feed_setup.working.unsubscribed
+    {
+      opacity: .6;
+    }
+    .feed_setup.unsubscribed
+    {
+      opacity: .3;
+    }
   </style>
 </head>
 <body class="loading">

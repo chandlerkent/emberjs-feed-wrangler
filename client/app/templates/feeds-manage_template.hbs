@@ -1,0 +1,25 @@
+{{#if isLoading}}
+  <br />
+  <br />
+  <br />
+  <br />
+  <center>Loading...</center>
+{{else}}
+  {{#each controller itemController="feed_manage"}}
+    <div {{bindAttr class=":feed_setup isWorking:working isSubscribed::unsubscribed"}}>
+      <b>{{#linkTo feed this}}{{title}}{{/linkTo}}</b>
+      <br />
+      <span class="small-url"><a {{bindAttr href="site_url"}} target="_blank">{{feed_url}}</a></span>
+      <br>
+      {{#if isWorking}}
+        <span>Working...</span>
+      {{else}}
+        {{#if isSubscribed}}
+          <a href="#" {{action "unsubscribe" this}}>Unsubscribe</a>
+        {{else}}
+          <a href="#" {{action resubscribe this}}>Resubscribe</a>
+        {{/if}}
+      {{/if}}
+    </div>
+  {{/each}}
+{{/if}}
