@@ -6,20 +6,13 @@ App.ApplicationRoute = Ember.Route.extend({
   renderTemplate: function() {
     this._super();
     
-    var self = this;
-    
-    // delay this work so the loading of the data doesn't block rendering
-    var delayedWorkController = DelayedWorkController.create({
-      timerInterval: 0 
-    });
-    delayedWorkController.scheduleWork()
-    .then(function() {
-      self.render('sidebar', {
-        outlet: 'sidebar',
+    Ember.run.later(this, function() {
+      this.render("sidebar", {
+        outlet: "sidebar",
         into: "application",
-        controller: self.controllerFor("sidebar")
+        controller: this.controllerFor("sidebar")
       });
-    });
+    }, 0);
   },
   
   events: {    
