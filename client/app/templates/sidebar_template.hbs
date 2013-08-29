@@ -1,15 +1,15 @@
-{{#linkTo index}}
+{{#link-to "index"}}
 	<img alt="Banner@2x" class="banner" height="30" src="/fw/assets/banner@2x-5354fc7860f2bfd098d1b30f4c332236.png" width="170">
-{{/linkTo}}
+{{/link-to}}
 
 <div class="stream-config">
 		<h4>Feeds</h4>
 		<p>
-			{{#linkTo unread}}Unread ({{unread.unreadCount}}){{/linkTo}}
+			{{#link-to "unread"}}Unread ({{unread.unreadCount}}){{/link-to}}
 			<br />
-			{{#linkTo newsfeed}}All Feeds{{/linkTo}}
+			{{#link-to "newsfeed"}}All Feeds{{/link-to}}
 			<br />
-			{{#linkTo starred}}Starred{{/linkTo}}
+			{{#link-to "starred"}}Starred{{/link-to}}
 			<br />
 		</p>
 </div>
@@ -23,7 +23,7 @@
     {{else}}
       <p>
         {{#each streams}}
-          {{#linkTo 'stream' this classNames="regular_link"}}{{title}}{{/linkTo}}
+          {{#link-to "stream" this classNames="regular_link"}}{{title}}{{/link-to}}
           <br />
         {{/each}}
       </p>
@@ -44,9 +44,9 @@
 
 <br />
 
-{{#linkTo "feeds-add" classNames="regular_link"}}Add Feeds{{/linkTo}}
+{{#link-to "feeds-add" classNames="regular_link"}}Add Feeds{{/link-to}}
 <br />
-{{#linkTo "feeds-manage" classNames="regular_link"}}Manage Feeds{{/linkTo}}
+{{#link-to "feeds-manage" classNames="regular_link"}}Manage Feeds{{/link-to}}
 <br />
 <br />
-{{#linkTo logout}}Log out{{/linkTo}}<br>  
+{{#link-to "logout"}}Log out{{/link-to}}<br>  

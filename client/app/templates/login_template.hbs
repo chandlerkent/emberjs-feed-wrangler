@@ -2,7 +2,7 @@
 {{#if isWorking}}
   Authenticating...
 {{else}}
-  <form {{action login on="submit"}}>
+  <form {{action "login" on="submit"}}>
     {{input value=email type="text" placeholder="Email"}}
     {{input value=password type="password" placeholder="Password"}}
     {{input type="submit" value="Log In"}}
