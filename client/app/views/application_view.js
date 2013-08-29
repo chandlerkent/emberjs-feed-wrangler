@@ -11,11 +11,11 @@ App.ApplicationView = Ember.View.extend({
     var self = this;
     
     Mousetrap.bind("g s", function() {
-      self.get("controller").send("transitionToRoute", "starred");
+      self.get("controller").send("doTransitionToStarredRoute");
     });
     
     Mousetrap.bind(["g h", "g u"], function() {
-      self.get("controller").send("transitionToRoute", "unread");
+      self.get("controller").send("doTransitionToIndexRoute");
     });
   }
 });

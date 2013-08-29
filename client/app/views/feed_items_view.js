@@ -1,6 +1,10 @@
 /* globals Mousetrap */
 
 App.FeedItemsView = Ember.View.extend({
+  init: function() {
+    this.get("controller.selectedItem");
+  },
+  
   selectedItemChanged: function() {
     var self = this;
     
@@ -31,27 +35,27 @@ App.FeedItemsView = Ember.View.extend({
     var self = this;
     
     Mousetrap.bind(["j", "n"], function() {
-      self.get("controller").send("selectNextItem");
+      self.get("controller").send("doSelectNextItem");
     });
     
     Mousetrap.bind(["k", "p"], function() {
-      self.get("controller").send("selectPreviousItem");
+      self.get("controller").send("doSelectPreviousItem");
     });
     
     Mousetrap.bind(["s", "l"], function() {
-      self.get("controller").send("toggleSelectedItemStarred");
+      self.get("controller").send("doToggleSelectedItemStarred");
     });
     
     Mousetrap.bind("o", function() {
-      self.get("controller").send("openSelectedItem");
+      self.get("controller").send("doOpenSelectedItem");
     });
     
     Mousetrap.bind("m", function() {
-      self.get("controller").send("toggleSelectedItemRead");
+      self.get("controller").send("doToggleSelectedItemRead");
     });
 
     Mousetrap.bind("i", function() {
-      self.get("controller").send("saveSelectedItemToReadLater");
+      self.get("controller").send("doSaveSelectedItemToReadLater");
     });
   },
   

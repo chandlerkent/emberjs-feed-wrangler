@@ -10,7 +10,7 @@ var FeedItemsController = Ember.ArrayController.extend({
     });
   },
   
-  didSelectItem: function(model) {
+  setSelectedItem: function(model) {
     if (Ember.isEqual(model, this.get("selectedItem"))) {
       return;
     }
@@ -33,32 +33,6 @@ var FeedItemsController = Ember.ArrayController.extend({
   selectedItemIndex: function() {
     return this.indexOf(this.get("selectedItem"));
   }.property("selectedItem"),
-  
-  selectNextItem: function() {
-    if (Ember.isNone(this.get("selectedItem"))) {
-      this.didSelectItem(this.get("firstObject"));
-      return;
-    }
-    
-    var newIndex = Math.min((this.get("selectedItemIndex") + 1), (this.get("length") - 1));
-  
-    this.didSelectItem(this.objectAt(newIndex));
-  },
-  
-  selectPreviousItem: function() {
-    if (Ember.isNone(this.get("selectedItem"))) {
-      this.didSelectItem(this.get("lastObject"));
-      return;
-    }
-    
-    var newIndex = Math.max((this.get("selectedItemIndex") - 1), 0);
-    
-    if (newIndex === this.get("selectedItemIndex")) {
-      window.scrollTo(0, 0);
-    }
-    
-    this.didSelectItem(this.objectAt(newIndex));
-  },
     
   openUrl: function(url) {
     this.openUrlInBackground(url);
@@ -77,16 +51,8 @@ var FeedItemsController = Ember.ArrayController.extend({
     a.dispatchEvent(evt);
   },
     
-  openItem: function(model) {
-    if (Ember.isNone(model)) {
-      return; 
-    }
-    
-    this.openUrl(model.get("url"));
-  },
-    
   openSelectedItem: function() {
-    this.openItem(this.get("selectedItem"));
+    this.openUrl(this.get("selectedItem.url"));
   },
     
   markItemRead: function(model) {
@@ -102,11 +68,17 @@ var FeedItemsController = Ember.ArrayController.extend({
   },
     
   markSelectedItemRead: function() {
-    var model = this.get("selectedItem");
-    
-    App.API.markFeedItemRead(this.get("selectedItem"));
+    this.markItemRead(this.get("selectedItem"));
   },
-
+    
+  toggleItemStarred: function(model) {
+    if (Ember.isNone(model)) {
+      return; 
+    }
+    
+    App.API.updateFeedItem(model, { starred: !model.get("starred") });   
+  },
+    
   saveItemToReadLater: function(model) {
     if (Ember.isNone(model)) {
       return; 
@@ -115,26 +87,18 @@ var FeedItemsController = Ember.ArrayController.extend({
     if (model.get("read_later")) {
       return; 
     }
-        
+    
     App.API.updateFeedItem(model, { read_later: true });
   },
     
-  saveSelectedItemToReadLater: function() {
-    this.saveItemToReadLater(this.get("selectedItem"));
-  },
-        
-  toggleItemStarred: function(model) {
+  openItem: function(model) {
     if (Ember.isNone(model)) {
       return; 
     }
     
-    App.API.updateFeedItem(model, { starred: !model.get("starred") });
+    this.openUrl(model.get("url"));
   },
-  
-  toggleSelectedItemStarred: function() {
-    this.toggleItemStarred(this.get("selectedItem"));
-  },
-
+    
   toggleRead: function(model) {
     if (Ember.isNone(model)) {
       return; 
@@ -142,8 +106,72 @@ var FeedItemsController = Ember.ArrayController.extend({
     
     App.API.updateFeedItem(model, { read: !model.get("read") });
   },
+  
+  actions: {
+    doSelectNextItem: function() {
+      if (Ember.isNone(this.get("selectedItem"))) {
+        this.setSelectedItem(this.get("firstObject"));
+        return;
+      }
+      
+      var newIndex = Math.min((this.get("selectedItemIndex") + 1), (this.get("length") - 1));
+      
+      if (newIndex === this.get("selectedItemIndex")) {
+        window.scrollTo(0, document.height);
+      }
+      
+      this.setSelectedItem(this.objectAt(newIndex));
+    },
     
-  toggleSelectedItemRead: function() {
-    this.toggleRead(this.get("selectedItem"));
+    doSelectPreviousItem: function() {
+      if (Ember.isNone(this.get("selectedItem"))) {
+        this.setSelectedItem(this.get("lastObject"));
+        return;
+      }
+      
+      var newIndex = Math.max((this.get("selectedItemIndex") - 1), 0);
+      
+      if (newIndex === this.get("selectedItemIndex")) {
+        window.scrollTo(0, 0);
+      }
+      
+      this.setSelectedItem(this.objectAt(newIndex));
+    },
+      
+    doSelectItem: function(model) {
+      this.setSelectedItem(model);
+    },
+      
+    doOpenItem: function(model) {
+      this.openItem(model);
+    },
+      
+    doOpenSelectedItem: function(model) {
+      this.openItem(this.get("selectedItem"));
+    },
+  
+    doSaveItemToReadLater: function(model) {
+      this.saveItemToReadLater(model);
+    },
+      
+    doSaveSelectedItemToReadLater: function() {
+      this.saveItemToReadLater(this.get("selectedItem"));
+    },
+          
+    doToggleItemStarred: function(model) {
+      this.toggleItemStarred(model);
+    },
+    
+    doToggleSelectedItemStarred: function() {
+      this.toggleItemStarred(this.get("selectedItem"));
+    },
+  
+    doToggleRead: function(model) {
+      this.toggleRead(model);
+    },
+      
+    doToggleSelectedItemRead: function() {
+      this.toggleRead(this.get("selectedItem"));
+    }
   }
 });

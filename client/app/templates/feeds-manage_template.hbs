@@ -7,7 +7,7 @@
 {{else}}
   {{#each controller itemController="feed_manage"}}
     <div {{bind-attr class=":feed_setup isWorking:working isSubscribed::unsubscribed"}}>
-      <b>{{#link-to feed this}}{{title}}{{/link-to}}</b>
+      <b>{{#link-to "feed" this}}{{title}}{{/link-to}}</b>
       <br />
       <span class="small-url"><a {{bind-attr href="site_url"}} target="_blank">{{feed_url}}</a></span>
       <br>

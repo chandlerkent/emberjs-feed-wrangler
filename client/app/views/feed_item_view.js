@@ -13,6 +13,6 @@ App.FeedItemView = Ember.View.extend({
       this.toggleBodyVisibility();
     }
     
-    this.get("controller").send("didSelectItem", this.get("content"));
+    this.get("controller").send("selectItem", this.get("content"));
   }
 });

@@ -3,17 +3,17 @@
 		<div class="container">
 
 			<div class="stream_item-right">
-				<span class="stream_item-link" {{action "openItem" this bubbles=false}}>
+				<span class="stream_item-link" {{action "doOpenItem" this bubbles=false}}>
 					<img alt="Box_expand@2x" height="20" src="/fw/assets/box_expand@2x-ef4b2444c9ab5953ef0de9af26f059e9.png" width="20">
 				</span>
-				<span class="stream_item-link" {{action "saveItemToReadLater" this bubbles=false}} tag="Read Later">
+				<span class="stream_item-link" {{action "doSaveItemToReadLater" this bubbles=false}} tag="Read Later">
 					{{#if read_later}}
 						<img alt="Sendtoinstapaper@2x" height="20" src="/fw/assets/check@2x.png" width="25">
 					{{else}}
 						<img alt="Sendtoinstapaper@2x" height="20" src="/fw/assets/sendToInstapaper@2x-2e4b97029458fcad4cdd1e875d5693d8.png" width="25">
 					{{/if}}
 				</span>
-				<span class="stream_item-link" {{action "toggleItemStarred" this bubbles=false}}>
+				<span class="stream_item-link" {{action "doToggleItemStarred" this bubbles=false}}>
 					{{#if starred}}
 						<img alt="Empty_star@2x" height="20" src="/fw/assets/full_star@2x-f75dbdd4fa02f4d13d8c24e904d4b65c.png" width="20">
 					{{else}}
