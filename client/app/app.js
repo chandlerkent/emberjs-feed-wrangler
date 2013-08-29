@@ -3,7 +3,7 @@
 // Dependencies
 require("dependencies/jquery-1.9.1.js");
 require("dependencies/handlebars.runtime.js");
-require("dependencies/ember-1.0.0-rc.6.1.js");
+require("dependencies/ember-1.0.0-rc.8.js");
 require("dependencies/mousetrap.min.js");
 
 // Templates
