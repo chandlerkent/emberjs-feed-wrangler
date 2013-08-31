@@ -17,28 +17,30 @@ App.LoginController = Ember.Controller.extend({
     });
   },
   
-  login: function() {    
-    this.set("errorMessage", "");
-    this.set("isWorking", true);
-    
-    var self = this;
-    App.SessionController.logIn(this.get("email"), this.get("password"), this.get("shouldRememberLogin"))
-    .then(
-      function() {
-        self.set("errorMessage", "");
-        
-        var transition = self.get("attemptedTransition");
-        if (!Ember.isNone(transition)) {
-          transition.retry();
-        } else {
-          self.transitionToRoute("index");
+  actions: {
+    login: function() {    
+      this.set("errorMessage", "");
+      this.set("isWorking", true);
+      
+      var self = this;
+      App.SessionController.logIn(this.get("email"), this.get("password"), this.get("shouldRememberLogin"))
+      .then(
+        function() {
+          self.set("errorMessage", "");
+          
+          var transition = self.get("attemptedTransition");
+          if (!Ember.isNone(transition)) {
+            transition.retry();
+          } else {
+            self.transitionToRoute("index");
+          }
+          self.set("attemptedTransition", null);
+        },
+        function(error) {
+          self.set("errorMessage", error);
+          self.set("isWorking", false);
         }
-        self.set("attemptedTransition", null);
-      },
-      function(error) {
-        self.set("errorMessage", error);
-        self.set("isWorking", false);
-      }
-     );
+       );
+    }
   }
 });
