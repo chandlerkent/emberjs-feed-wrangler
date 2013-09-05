@@ -7,18 +7,6 @@ var APIController = JSONRequestController.extend({
   baseUrl: "",
   clientKey: "",
   
-  _itemsToMarkRead: null,
-  _coalescingWorkController: null,
-  
-  init: function() {
-    this._super();
-    
-    this.set("_itemsToMarkRead", []);
-    this.set("_coalescingWorkController", WorkCoalescingController.create({
-      timerInterval: 5000
-    }));
-  },
-  
   buildQueryStringFromObject: function(params) {
     var qsParams = [];
     for (var param in params) {
@@ -153,20 +141,10 @@ var APIController = JSONRequestController.extend({
     return promise;
   },
     
-  markFeedItemRead: function(model) { 
-    var c = App.getPreambledConsole("APIController.markFeedItemRead");
-    this.get("_itemsToMarkRead").push(model.get("id"));
-    
+  markFeedItemRead: function(model) {
     model.set("read", true);
     
-    var self = this;
-    return this.get("_coalescingWorkController").scheduleWork()
-    .then(function() {
-      c.log("Marking read:", self.get("_itemsToMarkRead"));
-      var promise = self.markFeedItemsRead(self.get("_itemsToMarkRead"));
-      self.set("_itemsToMarkRead", []);
-      return promise;
-    });
+    return this.markFeedItemsRead([model.get("id")]);
   },
   
   markFeedItemsRead: function(feedItemIds) {
