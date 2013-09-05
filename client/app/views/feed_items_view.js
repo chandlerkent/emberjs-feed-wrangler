@@ -1,13 +1,23 @@
 /* globals Mousetrap */
 
 App.FeedItemsView = Ember.View.extend({
+  init: function() {
+    this.get("controller.selectedItem");
+  },
+  
+  selectedItemChanged: function() {
+    Ember.run.next(this, function() {
+      var el = this.getSelectedElement();
+      this.openItemBody(el);
+    });
+  }.observes("controller.selectedItem"),
+  
   scrollSelectedItemIntoView: function() {
     var selectedElement = this.getSelectedElement();
     if (Ember.isNone(selectedElement)) {
       return;
     }
     this.scrollElementIntoView(selectedElement);
-    this.openItemBody(selectedElement);
   },
   
   scrollElementIntoView: function(el) {
