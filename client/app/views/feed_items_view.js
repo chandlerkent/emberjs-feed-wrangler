@@ -1,22 +1,14 @@
 /* globals Mousetrap */
 
 App.FeedItemsView = Ember.View.extend({
-  init: function() {
-    this.get("controller.selectedItem");
+  scrollSelectedItemIntoView: function() {
+    var selectedElement = this.getSelectedElement();
+    if (Ember.isNone(selectedElement)) {
+      return;
+    }
+    this.scrollElementIntoView(selectedElement);
+    this.openItemBody(selectedElement);
   },
-  
-  selectedItemChanged: function() {
-    var self = this;
-    
-    Ember.run.next(function() {
-      var selectedElement = self.getSelectedElement();
-      if (Ember.isNone(selectedElement)) {
-        return;
-      }
-      self.scrollElementIntoView(selectedElement);
-      self.openItemBody(selectedElement);
-    });
-  }.observes("controller.selectedItem"),
   
   scrollElementIntoView: function(el) {
     el.scrollIntoView(true);
@@ -36,10 +28,12 @@ App.FeedItemsView = Ember.View.extend({
     
     Mousetrap.bind(["j", "n"], function() {
       self.get("controller").send("doSelectNextItem");
+      Ember.run.next(self, self.scrollSelectedItemIntoView);
     });
     
     Mousetrap.bind(["k", "p"], function() {
       self.get("controller").send("doSelectPreviousItem");
+      Ember.run.next(self, self.scrollSelectedItemIntoView);
     });
     
     Mousetrap.bind(["s", "l"], function() {
