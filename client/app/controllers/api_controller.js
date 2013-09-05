@@ -1,6 +1,5 @@
-/* global WorkCoalescingController, JSONRequestController, DelayedJSONRequestController */
+/* global JSONRequestController, DelayedJSONRequestController */
 
-require("app/controllers/work_coalescing_controller");
 require("app/controllers/json_request_controller");
 
 var APIController = JSONRequestController.extend({
