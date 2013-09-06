@@ -12,20 +12,27 @@ App.FeedItemsView = Ember.View.extend({
     });
   }.observes("controller.selectedItem"),
   
-  scrollSelectedItemIntoView: function() {
-    var selectedElement = this.getSelectedElement();
+  scrollSelectedItemIntoView: function(selectedElement) {
+    selectedElement = selectedElement || this.getSelectedElement();
     if (Ember.isNone(selectedElement)) {
       return;
     }
     this.scrollElementIntoView(selectedElement);
+  },
+    
+  scrollSelectedItemIntoViewAndOpenBody: function() {
+    var selectedElement = this.getSelectedElement();
+
+    this.scrollSelectedItemIntoView(selectedElement);
+    this.openItemBody(selectedElement);
   },
   
   scrollElementIntoView: function(el) {
     el.scrollIntoView(true);
   },
                                       
-  openItemBody: function(el) {
-    var view = Ember.View.views[$(el).parent(".ember-view").attr("id")];
+  openItemBody: function(selectedElement) {
+    var view = Ember.View.views[$(selectedElement).parent(".ember-view").attr("id")];
     if (Ember.isNone(view)) {
       return;
     }
@@ -38,12 +45,12 @@ App.FeedItemsView = Ember.View.extend({
     
     Mousetrap.bind(["j", "n"], function() {
       self.get("controller").send("doSelectNextItem");
-      Ember.run.next(self, self.scrollSelectedItemIntoView);
+      Ember.run.debounce(self, self.scrollSelectedItemIntoViewAndOpenBody, 150);
     });
     
     Mousetrap.bind(["k", "p"], function() {
       self.get("controller").send("doSelectPreviousItem");
-      Ember.run.next(self, self.scrollSelectedItemIntoView);
+      Ember.run.debounce(self, self.scrollSelectedItemIntoViewAndOpenBody, 150);
     });
     
     Mousetrap.bind(["s", "l"], function() {
