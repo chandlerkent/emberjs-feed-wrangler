@@ -16,7 +16,7 @@ App.ApplicationRoute = Ember.Route.extend({
     });
   },
   
-  events: {    
+  actions: {    
     markAllRead: function(models) {
       var cachedModels = {};
       var ids = [];

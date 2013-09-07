@@ -34,7 +34,7 @@
 </div>
 
 <div class="stream-config">
-	<form accept-charset="UTF-8" {{action "didSearch" on="submit"}} method="post">
+	<form accept-charset="UTF-8" {{action "doSearch" on="submit"}} method="post">
 		{{view Ember.TextField valueBinding="searchTerm" placeholder="Search subscribed feeds." class="search_field"}}
 		<center>
 			<input name="commit" type="submit" value="Search">

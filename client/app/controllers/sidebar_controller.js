@@ -34,11 +34,9 @@ App.SidebarController = Ember.ArrayController.extend({
     });
   }.observes("App.SessionController.isAuthenticated"),
   
-  didSearch: function() {
-    this.transitionToRoute("newsfeed-search", this.get("searchTerm"));
-  },
-  
-  logOut: function() {
-    this.get("controllers").get("login").logOut();
+  actions: {
+    doSearch: function() {
+      this.transitionToRoute("newsfeed-search", this.get("searchTerm"));
+    }
   }
 });
