@@ -15,9 +15,6 @@ App.FeedItemsView = Ember.View.extend({
   
   scrollSelectedItemIntoView: function(selectedElement) {
     selectedElement = selectedElement || this.getSelectedElement();
-    if (Ember.isNone(selectedElement)) {
-      return;
-    }
     this.scrollElementIntoView(selectedElement);
   },
     
@@ -29,6 +26,10 @@ App.FeedItemsView = Ember.View.extend({
   },
   
   scrollElementIntoView: function(el) {
+    if (Ember.isNone(el)) {
+      return;
+    }
+    
     el.scrollIntoView(true);
   },
                                       
