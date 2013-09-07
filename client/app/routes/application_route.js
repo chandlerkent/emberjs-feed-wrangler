@@ -6,13 +6,14 @@ App.ApplicationRoute = Ember.Route.extend({
   renderTemplate: function() {
     this._super();
     
-    Ember.run.later(this, function() {
+    // Don't block this render
+    Ember.run.next(this, function() {
       this.render("sidebar", {
         outlet: "sidebar",
         into: "application",
         controller: this.controllerFor("sidebar")
       });
-    }, 0);
+    });
   },
   
   events: {    

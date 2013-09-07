@@ -60,3 +60,16 @@ App.API = APIController.create({
 App.NewsfeedController = App.NewsfeedSearchController = App.StarredController = App.FeedController = App.StreamController = FeedItemsController.extend({
   
 });
+
+/*
+App.LoadingRoute = Ember.Route.extend({
+  renderTemplate: function(controller, model) {
+    console.log("RENDER_TEMPLATE");
+    
+    this.render("loading", {
+      into: "application",
+      outlet: "main"
+    });
+  }
+});
+*/

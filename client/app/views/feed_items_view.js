@@ -9,6 +9,7 @@ App.FeedItemsView = Ember.View.extend({
     Ember.run.next(this, function() {
       var el = this.getSelectedElement();
       this.openItemBody(el);
+      this.scrollElementIntoView(el);
     });
   }.observes("controller.selectedItem"),
   
@@ -45,12 +46,10 @@ App.FeedItemsView = Ember.View.extend({
     
     Mousetrap.bind(["j", "n"], function() {
       self.get("controller").send("doSelectNextItem");
-      Ember.run.debounce(self, self.scrollSelectedItemIntoViewAndOpenBody, 150);
     });
     
     Mousetrap.bind(["k", "p"], function() {
       self.get("controller").send("doSelectPreviousItem");
-      Ember.run.debounce(self, self.scrollSelectedItemIntoViewAndOpenBody, 150);
     });
     
     Mousetrap.bind(["s", "l"], function() {
