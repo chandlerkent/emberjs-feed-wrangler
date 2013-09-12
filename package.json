@@ -20,7 +20,9 @@
     "grunt-contrib-qunit": "~0.2.0",
     "grunt-ember-templates": "0.4.x",
     "grunt-contrib-watch": "~0.4.0",
-    "nodemon": "~0.7.10"
+    "nodemon": "~0.7.10",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-copy": "~0.4.1"
   },
   "repository": "https://github.com/chandlerkent/emberjs-feed-wrangler",
   "author": "chandler.kent@gmail.com",

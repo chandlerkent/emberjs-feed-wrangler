@@ -1,8 +1,45 @@
 /*jshint camelcase: false */
-/*global module:false */
+/*global module:false, process */
 module.exports = function(grunt) {
 
   grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+    build: {
+      version: '_<%= grunt.template.today("yyyy-mm-dd-HHMM") %>_<%= pkg.version %>',
+      dir: "client/build"
+    },
+    client_key: process.env.FEED_WRANGLER_CLIENT_KEY,
+    
+    clean: ["<%= build.dir %>/**/*.*"],
+    
+    /* 
+      Reads the projects .jshintrc file and applies coding
+      standards. Doesn't lint the dependencies or test
+      support files.
+    */
+    jshint: {
+      all: ['Gruntfile.js', 'client/app/**/*.js', "server/**/*.js", '!client/dependencies/*.*', "!<%= build.dir %>/**/*.*"],
+      options: {
+        jshintrc: '.jshintrc'
+      }
+    },
+    
+    copy: {
+      main: {
+        expand: true,
+        cwd: "client/public/",
+        src: '**',
+        dest: '<%= build.dir %>/',
+        flatten: true,
+        options: {
+          processContent: function(content, srcPath) {
+            return grunt.template.process(content);
+          },
+          processContentExclude: ["**/*.ico"]
+        }
+      }
+    },
+    
     /* 
        A simple ordered concatenation strategy.
        This will start at app/app.js and begin
@@ -28,7 +65,7 @@ module.exports = function(grunt) {
           return filepath;
         }
       },
-      'client/public/application.js': 'client/app/app.js'
+      '<%= build.dir %>/application<%= build.version %>.js': 'client/app/app.js'
     },
 
     /* 
@@ -57,7 +94,7 @@ module.exports = function(grunt) {
     
     watch: {
       application_code: {
-        files: ['client/dependencies/**/*.js', 'client/app/**/*.js'],
+        files: ['client/dependencies/**/*.js', 'client/app/**/*.js', "client/public/**/*.js"],
         tasks: ["jshint", 'neuter']
       },
       handlebars_templates: {
@@ -68,28 +105,6 @@ module.exports = function(grunt) {
         files: ["server/**/*.js"],
         tasks: ["jshint"]
       }
-    },
-
-    /*
-      Find all the <whatever>_test.js files in the test folder.
-      These will get loaded via script tags when the task is run.
-      This gets run as part of the larger 'test' task registered
-      below.
-    */
-    build_test_runner_file: {
-      all: ['test/**/*_test.js']
-    },
-    
-    /* 
-      Reads the projects .jshintrc file and applies coding
-      standards. Doesn't lint the dependencies or test
-      support files.
-    */
-    jshint: {
-      all: ['Gruntfile.js', 'client/app/**/*.js', "server/**/*.js", '!client/dependencies/*.*'],
-      options: {
-        jshintrc: '.jshintrc'
-      }
     }
   });
   
@@ -99,21 +114,16 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-neuter');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-ember-templates');
-  
-  /*
-    A task to run the application's unit tests via the command line.
-    It will
-      - convert all the handlebars templates into compile functions
-      - combine these files + application files in order
-      - lint the result
-      - build an html file with a script tag for each test file
-      - headlessy load this page and print the test runner results
-  */
-  grunt.registerTask('test', ['emberTemplates', 'neuter', 'jshint', 'build_test_runner_file', 'qunit']);
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
+  grunt.registerTask('heroku:production', ["build:production"]);
+  
   /*
     Default task. Compiles templates, neuters application code, and begins
     watching for changes.
   */
-  grunt.registerTask('default', ["jshint", 'emberTemplates', 'neuter', "watch"]);
+  grunt.registerTask('default', ["build", "watch"]);
+  
+  grunt.registerTask("build", ["jshint", "clean", "copy", "emberTemplates", "neuter"]);
 };

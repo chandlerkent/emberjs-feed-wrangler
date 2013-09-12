@@ -16,14 +16,6 @@ var s = httpProxy.createServer(function (req, res, proxy) {
       port: CONFIG.FEED_WRANGLER.PORT
     });
   }
-  else if (req.url === "/config.js") {
-    var clientConfig = {
-      "client_key": CONFIG.FEED_WRANGLER.CLIENT_KEY
-    };
-    res.setHeader("Content-Type", "application/javascript");
-    res.write("CONFIG = " + JSON.stringify(clientConfig) + ";");
-    res.end();
-  }
   else {
     console.log("Proxying to static site", req.url);
     fileServer.serve(req, res);
