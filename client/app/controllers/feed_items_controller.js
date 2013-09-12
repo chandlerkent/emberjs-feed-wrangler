@@ -2,6 +2,22 @@ var FeedItemsController = Ember.ArrayController.extend({
   isLoading: false,
   loadError: null,
   
+  init: function() {
+    this.get("unreadCount");
+  },
+  
+  unreadCount: function() {
+    var unreadItems = this.filter(function(item) {
+      return !item.get("read");
+    });
+    
+    return unreadItems.get("length");
+  }.property("this.@each.read"),
+  
+  hasUnreadItems: function() {
+    return (this.get("unreadCount") > 0);
+  }.property("unreadCount"),
+  
   unselectAllItems: function() {
     this.get("content").forEach(function(item) {
       if (item.get("isSelected")) {

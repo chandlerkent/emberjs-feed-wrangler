@@ -1,7 +1,8 @@
 <div class="edit-button">
 	{{#if model}}
-		<a href="#" {{action "markAllRead" model}}>Mark All Read</a>
-		:
+    {{#if hasUnreadItems}}
+      <a href="#" {{action "markAllRead" model}}>Mark All {{unreadCount}} Read</a> :
+    {{/if}}
 	{{/if}}
 	<a href="/streams/9274/edit">Edit</a>
 </div>

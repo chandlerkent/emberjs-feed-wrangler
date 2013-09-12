@@ -1,6 +1,7 @@
 <div class="edit-button">
-	<a href="#" {{action "markAllRead" model}}>Mark All Read</a>
-	:
+	{{#if hasUnreadItems}}
+    <a href="#" {{action "markAllRead" model}}>Mark All {{unreadCount}} Read</a> :
+  {{/if}}
 	<a href="#" {{action "unsubscribe" model.firstObject.feed}}>Unsubscribe</a>
 </div>
 

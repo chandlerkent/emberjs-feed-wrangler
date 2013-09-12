@@ -57,7 +57,7 @@ App.API = APIController.create({
   clientKey: CONFIG.client_key
 });
 
-App.NewsfeedController = App.NewsfeedSearchController = App.StarredController = App.FeedController = App.StreamController = FeedItemsController.extend({
+App.NewsfeedController = App.NewsfeedSearchController = App.StarredController = App.FeedController = App.StreamController = App.UnreadController = FeedItemsController.extend({
   
 });
 
