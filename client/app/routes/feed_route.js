@@ -9,7 +9,7 @@ App.FeedRoute = FeedItemsBaseRoute.extend({
     return App.API.getFeedItems(App.API.constructApiUrl("feed_items/list/", params));
 	},
   
-  events: {
+  actions: {
     unsubscribe: function(feed) {
       App.API.unsubscribeFromFeed(Ember.get(feed, "id"));
       this.transitionTo("index");

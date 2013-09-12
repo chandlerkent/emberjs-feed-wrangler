@@ -40,7 +40,7 @@ eval("var AuthenticatedRoute = Ember.Route.extend({\n  beforeModel: function(tra
 
 eval("/* global AuthenticatedRoute, LoadableRoute, ScrollWindowToTopRoute */\n\nvar FeedItemsBaseRoute = AuthenticatedRoute.extend(LoadableRoute, ScrollWindowToTopRoute, {});//@ sourceURL=client/app/routes/feed_items_base_route.js")
 
-eval("/* global FeedItemsBaseRoute */\n\nApp.FeedRoute = FeedItemsBaseRoute.extend({\n\tsetupParameters: function(controller, model) {\n    return { feed_id: model.id };\n  },\n\t\n\tmodel: function(params) {\n    return App.API.getFeedItems(App.API.constructApiUrl(\"feed_items/list/\", params));\n\t},\n  \n  events: {\n    unsubscribe: function(feed) {\n      App.API.unsubscribeFromFeed(Ember.get(feed, \"id\"));\n      this.transitionTo(\"index\");\n    }\n  }\n});//@ sourceURL=client/app/routes/feed_route.js")
+eval("/* global FeedItemsBaseRoute */\n\nApp.FeedRoute = FeedItemsBaseRoute.extend({\n\tsetupParameters: function(controller, model) {\n    return { feed_id: model.id };\n  },\n\t\n\tmodel: function(params) {\n    return App.API.getFeedItems(App.API.constructApiUrl(\"feed_items/list/\", params));\n\t},\n  \n  actions: {\n    unsubscribe: function(feed) {\n      App.API.unsubscribeFromFeed(Ember.get(feed, \"id\"));\n      this.transitionTo(\"index\");\n    }\n  }\n});//@ sourceURL=client/app/routes/feed_route.js")
 
 eval("App.IndexRoute = Ember.Route.extend({\n  redirect: function() {\n    this.transitionTo(\"unread\");\n  }\n});//@ sourceURL=client/app/routes/index_route.js")
 
