@@ -1,0 +1,52 @@
+{{#link-to "index"}}
+	<img alt="Banner@2x" class="banner" height="30" src="/fw/assets/banner@2x-5354fc7860f2bfd098d1b30f4c332236.png" width="170">
+{{/link-to}}
+
+<div class="stream-config">
+		<h4>Feeds</h4>
+		<p>
+			{{#link-to "unread"}}Unread ({{controllers.unread.unreadCount}}){{/link-to}}
+			<br />
+			{{#link-to "newsfeed"}}All Feeds{{/link-to}}
+			<br />
+			{{#link-to "starred"}}Starred{{/link-to}}
+			<br />
+		</p>
+</div>
+
+<div class="stream-config">
+		<h4>Smart Streams</h4>
+    {{#if isLoading}}
+      <p>
+        <center>Loading...</center>
+      </p>
+    {{else}}
+      <p>
+        {{#each streams}}
+          {{#link-to "stream" this classNames="regular_link"}}{{title}}{{/link-to}}
+          <br />
+        {{/each}}
+      </p>
+    {{/if}}
+		<center>
+			<a href="/streams/new">Create</a>
+		</center>
+</div>
+
+<div class="stream-config">
+	<form accept-charset="UTF-8" {{action "doSearch" on="submit"}} method="post">
+		{{input type="text" value=searchTerm placeholder="Search subscribed feeds." class="search_field"}}
+		<center>
+			<input name="commit" type="submit" value="Search">
+		</center>
+	</form>
+</div>
+
+<br />
+
+{{#link-to "feeds-add" classNames="regular_link"}}Add Feeds{{/link-to}}
+<br />
+{{#link-to "feeds-manage" classNames="regular_link"}}Manage Feeds{{/link-to}}
+<br />
+<br />
+{{#link-to "logout"}}Log out{{/link-to}}<br>  

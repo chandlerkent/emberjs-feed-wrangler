@@ -1,1 +1,0 @@
-require("app/helpers/time_ago.js");

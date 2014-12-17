@@ -1,75 +1,16 @@
-/* global APIController, FeedItemsController, CONFIG */
+import Ember from 'ember';
+import Resolver from 'ember/resolver';
+import loadInitializers from 'ember/load-initializers';
+import config from './config/environment';
 
-// Dependencies
-require("dependencies/jquery-1.9.1.js");
-require("dependencies/handlebars.runtime.js");
-require("dependencies/ember-1.0.0-rc.8.js");
-require("dependencies/mousetrap.min.js");
+Ember.MODEL_FACTORY_INJECTIONS = true;
 
-// Templates
-require("dependencies/compiled/templates");
-
-App = Ember.Application.create({
-  LOG_TRANSITIONS: true,
-  rootElement: "#app",
-  
-  removeLoading: function() {
-    $("#app .loading").remove();
-    $("body.loading").removeClass("loading");
-  },
-  
-  getPreambledConsole: function(preamble) {
-    preamble += ":";
-    var unshift = [].unshift;
-    console = console || function() {};
-    return {
-      info: function() {
-        unshift.call(arguments, preamble);
-        console.info.apply(console, arguments); 
-      },
-      
-      log: function() {
-        unshift.call(arguments, preamble);
-        console.log.apply(console, arguments); 
-      },
-      
-      warn: function() {
-        unshift.call(arguments, preamble);
-        console.warn.apply(console, arguments); 
-      },
-      
-      error: function() {
-        unshift.call(arguments, preamble);
-        console.error.apply(console, arguments); 
-      }
-    };
-  }
+var App = Ember.Application.extend({
+  modulePrefix: config.modulePrefix,
+  podModulePrefix: config.podModulePrefix,
+  Resolver: Resolver
 });
 
-require("app/mixins/mixins.js");
-require("app/helpers/helpers.js");
-require("app/views/views.js");
-require("app/routes/router.js");
-require("app/controllers/controllers.js");
+loadInitializers(App, config.modulePrefix);
 
-App.API = APIController.create({
-  baseUrl: "/fw/api/v2/",
-  clientKey: CONFIG.client_key
-});
-
-App.NewsfeedController = App.NewsfeedSearchController = App.StarredController = App.FeedController = App.StreamController = App.UnreadController = FeedItemsController.extend({
-  
-});
-
-/*
-App.LoadingRoute = Ember.Route.extend({
-  renderTemplate: function(controller, model) {
-    console.log("RENDER_TEMPLATE");
-    
-    this.render("loading", {
-      into: "application",
-      outlet: "main"
-    });
-  }
-});
-*/
+export default App;
