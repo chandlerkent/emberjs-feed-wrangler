@@ -1,3 +1,48 @@
-html, body {
-  margin: 20px;
+.stream_item-title
+{
+  cursor: hand;
+  cursor: pointer;
+  font-weight:600;
+}
+.stream_item-title.read
+{
+  font-weight: normal;
+}
+.stream_item-title-text.active
+{
+  white-space: normal;
+  height: 35px;
+  padding-bottom: 10px;
+}
+a.active
+{
+  font-weight: bold;
+}
+.error
+{
+  color: red; 
+}
+.stream_item.active
+{
+  border-color: rgb(0, 0, 170);
+}
+#right-column
+{
+  min-height: 500px;
+}
+.loading #footer
+{
+  display: none; 
+}
+.feed_setup
+{
+  transition: opacity .5s;
+}
+.feed_setup.working, .feed_setup.working.unsubscribed
+{
+  opacity: .6;
+}
+.feed_setup.unsubscribed
+{
+  opacity: .3;
 }
