@@ -6,6 +6,6 @@
     "HOST": "feedwrangler.net"
   },
   "STATIC_SERVER": {
-    "ROOT": "client/build/"
+    "ROOT": "client/dist/"
   }
 }

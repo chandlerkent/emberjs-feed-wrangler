@@ -8,6 +8,7 @@ console.log("CONFIG:", CONFIG);
 var fileServer = new static.Server(CONFIG.STATIC_SERVER.ROOT);
 
 var s = httpProxy.createServer(function (req, res, proxy) {
+	console.log("URL: [" + req.url + "]");
   if (req.url.indexOf("/fw") === 0) {
     req.url = req.url.replace("/fw", "");
     console.log("Proxying to Feed Wrangler", req.url);

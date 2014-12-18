@@ -1,5 +1,5 @@
 export function initialize(container, application) {
-  application.inject('route', 'cookieService', 'service:cookie');
+  application.inject('service:session', 'cookie', 'service:cookie');
 }
 
 export default {

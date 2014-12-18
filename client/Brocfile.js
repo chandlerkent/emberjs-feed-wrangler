@@ -6,6 +6,7 @@ var app = new EmberApp();
 
 app.import('bower_components/moment/min/moment.min.js');
 app.import('bower_components/mousetrap/mousetrap.min.js');
+app.import('bower_components/jquery-cookie/jquery.cookie.js');
 
 // Use `app.import` to add additional libraries to the generated
 // output files.

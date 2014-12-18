@@ -3,7 +3,8 @@ import Ember from 'ember';
 
 export default Ember.View.extend({
 	didInsertElement: function() {
-		//App.removeLoading();
+	  Ember.$("#app .loading").remove();
+    Ember.$("body.loading").removeClass("loading");
 		
 		this.setupKeyboardSupport();
 	},

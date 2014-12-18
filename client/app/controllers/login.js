@@ -25,24 +25,26 @@ export default Ember.Controller.extend({
 			this.set("isWorking", true);
 			
 			var self = this;
-			this.session.logIn(this.get("email"), this.get("password"), this.get("shouldRememberLogin"))
-			.then(
-				function() {
-					self.set("errorMessage", "");
-					
-					var transition = self.get("attemptedTransition");
-					if (!Ember.isNone(transition)) {
-						transition.retry();
-					} else {
-						self.transitionToRoute("index");
+			this.api
+				.getJSON(this.api.constructApiUrl("users/authorize/", { email: this.get("email"), password: this.get("password") }))
+				.then(
+					function(response) {
+						self.session.didSucceedLogin(response, self.get("shouldRememberLogin"));
+						self.set("errorMessage", "");
+						var transition = self.get("attemptedTransition");
+						if (!Ember.isNone(transition)) {
+							transition.retry();
+						} else {
+							self.transitionToRoute("index");
+						}
+						self.set("attemptedTransition", null);
+					},
+					function(err) {
+						self.session.didFailLogin(err);
+						self.set("errorMessage", err);
+						self.set("isWorking", false);
 					}
-					self.set("attemptedTransition", null);
-				},
-				function(error) {
-					self.set("errorMessage", error);
-					self.set("isWorking", false);
-				}
-			);
+				);
 		}
 	}
 });
