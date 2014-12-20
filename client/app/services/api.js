@@ -1,9 +1,10 @@
 import Ember from 'ember';
 import JSONRequestService from './json-request';
+import config from '../config/environment';
 
 export default JSONRequestService.extend({
-	baseUrl: "/fw/api/v2/",
-	clientKey: "32e970bbb059adb2b915aeec93317a3f",
+	baseUrl: config.apiBaseUrl,
+	clientKey: config.feedWranglerApiKey,
 	
 	buildQueryStringFromObject: function(params) {
 		var qsParams = [];

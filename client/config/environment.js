@@ -6,6 +6,8 @@ module.exports = function(environment) {
     environment: environment,
     baseURL: '/',
     locationType: 'hash',
+    feedWranglerApiKey: null,
+    apiBaseUrl: null,
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -19,6 +21,9 @@ module.exports = function(environment) {
       rootElement: "#app"
     }
   };
+  
+  ENV.feedWranglerApiKey = process.env.FEED_WRANGLER_CLIENT_KEY;
+  ENV.apiBaseUrl = "/fw/api/v2/";
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
