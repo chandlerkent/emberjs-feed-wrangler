@@ -13,7 +13,6 @@
     "reload": "nodemon -L server/server.js --watch server"
   },
   "dependencies": {
-    "ember-cli": "0.1.4",
     "http-proxy": "0.10.x",
     "node-static": "~0.7.0"
   },
