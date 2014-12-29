@@ -6,6 +6,7 @@ export default Ember.ArrayController.extend({
 	
 	init: function() {
 		this.get("unreadCount");
+		this._super();
 	},
 	
 	unreadCount: function() {

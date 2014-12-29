@@ -1,0 +1,27 @@
+{{#view "feed-items"}}
+  {{#if isLoading}}
+    <br />
+    <br />
+    <br />
+    <br />
+    <center>Loading...</center>
+  {{else}}
+    {{#if loadError}}
+      <br />
+      <br />
+      <br />
+      <br />
+      <center>{{loadError}}</center>    
+    {{else}}
+      {{#each model}}
+        {{view "feed-item" contentBinding="this"}}
+      {{else}}
+        <br />
+        <br />
+        <br />
+        <br />
+        <center>No articles found.</center>
+      {{/each}}
+    {{/if}}
+  {{/if}}
+{{/view}}
