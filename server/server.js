@@ -3,19 +3,15 @@ var httpProxy = require('http-proxy');
 var static = require("node-static");
 var CONFIG = require("./config");
 
-console.log("CONFIG:", CONFIG);
-
 var fileServer = new static.Server(CONFIG.STATIC_SERVER.ROOT);
+var proxyServer = new httpProxy.createProxyServer({ target: CONFIG.FEED_WRANGLER.TARGET });
 
-var s = httpProxy.createServer(function (req, res, proxy) {
+var server = http.createServer(function (req, res, proxy) {
 	console.log("URL: [" + req.url + "]");
   if (req.url.indexOf("/fw") === 0) {
     req.url = req.url.replace("/fw", "");
     console.log("Proxying to Feed Wrangler", req.url);
-    proxy.proxyRequest(req, res, {
-      host: CONFIG.FEED_WRANGLER.HOST,
-      port: CONFIG.FEED_WRANGLER.PORT
-    });
+    proxyServer.web(req, res);
   }
   else {
     console.log("Proxying to static site", req.url);
@@ -23,8 +19,10 @@ var s = httpProxy.createServer(function (req, res, proxy) {
   }
 });
 
-s.listen(CONFIG.PORT, CONFIG.HOST);
+server.listen(CONFIG.PORT, CONFIG.HOST);
 
-s.on("listening", function() {
+server.on("listening", function() {
   console.log("LISTENING", CONFIG.PORT, CONFIG.HOST);
 });
+
+console.log("CONFIG:", CONFIG);

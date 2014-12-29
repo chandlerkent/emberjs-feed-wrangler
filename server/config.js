@@ -6,8 +6,7 @@ var CONFIG = {
   PORT: process.env.PORT,
   HOST: process.env.HOST,
   FEED_WRANGLER: {
-    PORT: process.env.FEED_WRANGLER_PORT,
-    HOST: process.env.FEED_WRANGLER_HOST,
+    TARGET: process.env.FEED_WRANGLER_TARGET,
     CLIENT_KEY: process.env.FEED_WRANGLER_CLIENT_KEY
   },
   STATIC_SERVER: {
