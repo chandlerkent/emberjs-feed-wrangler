@@ -10,6 +10,10 @@ export default Ember.Object.extend({
 	apiToken: "",
 	shouldRememberCredentials: false,
 	
+	init: function() {
+		this.set("apiToken", this.cookie.getCookie(AUTH_COOKIE.NAME));
+	},
+	
 	isAuthenticated: function() {
 		return (!Ember.isEmpty(this.get("apiToken"))); 
 	}.property("apiToken"),
